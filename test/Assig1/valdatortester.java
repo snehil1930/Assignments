@@ -6,10 +6,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+/**
+    * This class tests Asignment 1 on different testcase
+    */
+
 class valdatortester {
 
 	@Test
-	void test() throws Exception {
+	void validateTest() throws Exception {
 		
 		String [] args = new String[]{"-name" , "snehil" , "-type" , "raw" , "-price" , "123" , "-quantity" , "2"} ;
 		Validator vc=new Validator();
