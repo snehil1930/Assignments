@@ -1,10 +1,18 @@
 package Assignment_1;
 
 import java.util.*;
+
+/**
+	* This class  validate input on exceptions
+	* @param price of item
+	* @return tax of raw item
+    */
 public class Validator {
 	
-//	To check whether name is first input or not
-//  and name and type are compulsory inputs
+  /**
+	* This method check validity of type and name
+	* @param list of arguments
+    */
 	
 	private void credCheck(final ArrayList<String> args) throws Exception
 	{
@@ -16,7 +24,10 @@ public class Validator {
 			throw new Exception("Input should have type");
 	}
 
-//	Check if input provided for price and quantity are in right format and under the constraints
+	/**
+	* This method check format of input in price and quantity
+	* @param list of arguments
+    */
 	
 	private  void parsingCheck(final ArrayList<String> args) throws Exception {
 		String quantity="-".concat(Constants.quantity);
@@ -35,8 +46,12 @@ public class Validator {
             System.out.println("Invalid input for price and quantity !");
         }
     }
+
+    /**
+	* This method check null value of type 
+	* @param mp hash of arguments
+    */
 	
-// Null value check for Type
 	public void nullCheck(Map<String,String> mp) throws Exception
 	{
 		if(mp.get("-".concat(Constants.type))==null)
@@ -44,8 +59,10 @@ public class Validator {
 			throw new Exception("Null value entered for type") ;
 		}
 	}
-	
-//	Checking correct options for type
+	/**
+	* This method check type entered
+	* @param mp hash of arguments
+    */
 	
 	public void borderCheck(Map<String,String> mp) throws Exception
 	{
@@ -53,6 +70,12 @@ public class Validator {
 		if (mp.get(s).equals(Constants.raw)==false && mp.get(s).equals(Constants.manufactured)==false && mp.get(s).equals(Constants.imported)==false)
 			throw new Exception("This Type is not in option");
 	}
+
+	/**
+	* This method combine all validity check
+	* @param args list of arguments
+	* @param mp hash of arguments
+    */
 	
 	
 	public void checker(final ArrayList<String> args,final Map<String,String> mp) throws Exception
@@ -64,18 +87,21 @@ public class Validator {
 		
 	}
 	
+	/**
+	* This method check validity of type and name
+	* @param args list of arguments
+	* @return item class 
+    */
 	
 	
 	public item getDetails(final  String[]args) throws Exception
-	{
-//		Creating data structure for passing 
+	{ 
 		ArrayList<String> list=new ArrayList<>(Arrays.asList(args));
 		Map<String, String> mp = new HashMap<String, String>();
 		for(int i=0;i<args.length;i+=2)
 		{
 			mp.put(args[i],args[i+1]);	
 		}
-//		Method to initiate the checks
 		checker(list,mp);
 		System.out.println("Exception are fine");
 		String name,type;

@@ -1,20 +1,39 @@
 package Assignment_1;
+/**
+ * This class is use to calulate tax of different items
+ */
 
-public class Utils {
+public final class Utils {
+	/**
+	* This method calulate tax of raw item
+	* @param price  prive  of item
+	* @return tax of raw item
+    */
 	
-	private float rawTax(fianl float price)
+	private float rawTax(final float price)
 	{
 		float tax_of_raw= (float) ((12.5/Constants.hun)*price);
 		System.out.println(tax_of_raw);
 		return tax_of_raw;
 	}
 	
+	/**
+	* This method calulate tax of raw item
+	* @param price price of item in real number
+	* @return tax of manufactured item
+    */
+
 	private float manufacturedTax(final float price)
 	{
 		float rem_tax=(float) ((12.5/Constants.hun)*price);
 		float tax_of_manf=(float) (rem_tax+(2.0/Constants.hun)*price);
 		return tax_of_manf;
 	}
+	/**
+	* This method calulate tax of imported item
+	* @param price price of item in real number
+	* @return tax of imported item
+    */
 	
 	private float importedTax(final float price)
 	{
@@ -28,10 +47,14 @@ public class Utils {
         return tax_of_import;
 	}
 	
-//	Logic for tax calculations are done
+	/**
+	* This method calulate tax of  item
+	* @param price  price of item
+	* @param type   type of item
+	* @return tax of item
+    */
 	public float calculateTax(final String type,final float price)
 	{
-		float tax=0;
 		if(type.equalsIgnoreCase(Constants.raw))
 			return rawTax(price);
 		else if(type.equalsIgnoreCase(Constants.manufactured)) 

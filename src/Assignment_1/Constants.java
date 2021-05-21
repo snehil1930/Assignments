@@ -1,5 +1,10 @@
 package Assignment_1;
 
+/**
+* This class is made to avoid the use of repeated value 
+* which is use often
+ */
+
 public class Constants{
 	public static final String quantity = "quantity";
     public static final String type = "type";

@@ -1,6 +1,13 @@
 package Assignment_1;
 
 import java.util.*;
+
+/**
+ * This class is use to save details of item
+ * calulate final price
+ * display details of item
+ * getter fuctions of variable
+ */
 public class item {
 	private  String name;
 	private  float price;
@@ -9,7 +16,13 @@ public class item {
 	private float Tax;
 	private float finalPrice;
 	
-//	Constructor
+/**
+   * This is a constructor
+   * @param name This is the first paramter to intialize name 
+   * @param price This is the second paramter to intialize price
+   * @param quantity  this is the third parameter to intialize quantity
+   * @param type This is the fourth paramter to inyialize type
+   */
 	
 	public item(final String name,final float price,final int quantity,final String type)
 	{
@@ -18,8 +31,11 @@ public class item {
 		this.quantity=quantity;
 		this.type=type;
 	}
+
+	/**
+     * This is a method to sum up the tax and generate final price
+     */
 	
-	//	summing total price
 	
 	public void totaling()
 	{
@@ -29,45 +45,67 @@ public class item {
 		finalPrice=quantity*totalPrice;
 	}
 	
-//	return name of item
+	/**
+     * This is a getter method of name
+     * @return name
+     */
 	public String getName()
 	{
 		return name;
 	}
 	
-// return price of item
-	
+	/**
+     * This is a getter method of price
+     * @return price
+     */
+
 	public float getPrice()
 	{
 		return price;
 	}
-	
-//return quantity of item
+
+	/**
+     * This is a getter method of quantity
+     * @return quantity
+     */
 	
 	public int getQuantity()
 	{
 		return quantity;
 	}
-	
-// return type of item
+
+	/**
+     * This is a getter method of type
+     * @return item type
+     */
 	
 	public String getType()
 	{
 		return type;
 	}
-	
-//	return final price
+	/**
+     * This is a getter method of finalprice of item
+     * @return finalprice of item
+     */
+
 	public float getfinalPrice()
 	{
 		return finalPrice;
 	}
 	
-//	return tax
+	/**
+     * This is a getter method of tax on item
+     * @return tax on item
+     */
+
 	public float getTax()
 	{
 		return Tax;
 	}
-//	Printing the Details of item 
+
+	/**
+     * This is a printing method details in item
+     */
 	
 	void display()
 	{

@@ -1,13 +1,21 @@
 package Assignment_1;
 
 import java.util.*;
+/**
+ * This class is use to check inputs of item
+ */
 public class ItemCheck {
+
+	public static Validator vc=new Validator();
+	/**
+	  * default constructor
+      */
 	ItemCheck(){
 		
-//		Constructor of class
 	}
-	
-//	Taking other inputs after pressing Y
+	/**
+      * This method is use to validate input on exceptions and format of input
+      */
 	
 	void nextInputs() throws Exception
 	{
@@ -21,27 +29,27 @@ public class ItemCheck {
 			
 //			Inputs taken are verified in Validator
 			
-			final item it=new Validator().getDetails(ar);
+			final item it=vc.getDetails(ar);
 			it.totaling();
 			it.display();
 			System.out.println("Do you want to enter more choice.Enter Y/N");
 			ch=sc.nextLine();
 		}
 		
-//		Exiting from inputs
-		
 		System.out.println("Thank you purchase!Hope to see you soon..");
-		System.exit(1);
 	}
 	
-	
+	/**
+      * This method is use to take details of item
+      * @param args array of string is taken as input
+      */
 	
 	
 	void initials(final String[]args)
 	{
     	try
 		{
-			final item it=new Validator().getDetails(args);
+			final item it=vc.getDetails(args);
 			it.display();
 			nextInputs();
 		}
