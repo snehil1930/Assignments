@@ -12,9 +12,8 @@ public class ItemCheck {
 	void nextInputs() throws Exception
 	{
 		System.out.println("Do you want to enter more choice.Enter Y/N");
-		String ch;
 		final Scanner sc=new Scanner(System.in);
-		ch=sc.nextLine();
+		String ch=sc.nextLine();
 		while(ch.equalsIgnoreCase("n")==false)
 		{
 			String inputs=sc.nextLine();
@@ -22,7 +21,7 @@ public class ItemCheck {
 			
 //			Inputs taken are verified in Validator
 			
-			item it=new Validator().getDetails(ar);
+			final item it=new Validator().getDetails(ar);
 			it.totaling();
 			it.display();
 			System.out.println("Do you want to enter more choice.Enter Y/N");
@@ -38,11 +37,11 @@ public class ItemCheck {
 	
 	
 	
-	void initials(String[]args)
+	void initials(final String[]args)
 	{
     	try
 		{
-			item it=new Validator().getDetails(args);
+			final item it=new Validator().getDetails(args);
 			it.display();
 			nextInputs();
 		}

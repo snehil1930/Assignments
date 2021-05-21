@@ -6,10 +6,10 @@ public class Validator {
 //	To check whether name is first input or not
 //  and name and type are compulsory inputs
 	
-	private void credCheck(ArrayList<String> args) throws Exception
+	private void credCheck(final ArrayList<String> args) throws Exception
 	{
-		String name="-"+Constants.name;
-		String type="-"+Constants.type;
+		String name="-".concat(Constants.name);
+		String type="-".concat(Constants.type);
 		if(args.indexOf(name)!=0)
 			throw new Exception("Input should start with -name");
 		if(args.indexOf(name)<0)
@@ -18,9 +18,9 @@ public class Validator {
 
 //	Check if input provided for price and quantity are in right format and under the constraints
 	
-	private  void parsingCheck(ArrayList<String> args) throws Exception {
-		String quantity="-"+Constants.quantity;
-		String price="-"+Constants.price;
+	private  void parsingCheck(final ArrayList<String> args) throws Exception {
+		String quantity="-".concat(Constants.quantity);
+		String price="-".concat(Constants.price);
 		int quant=0;
 		double pr=0;
         try {
@@ -39,7 +39,7 @@ public class Validator {
 // Null value check for Type
 	public void nullCheck(Map<String,String> mp) throws Exception
 	{
-		if(mp.get("-"+Constants.type)==null)
+		if(mp.get("-".concat(Constants.type))==null)
 		{
 			throw new Exception("Null value entered for type") ;
 		}
@@ -49,13 +49,13 @@ public class Validator {
 	
 	public void borderCheck(Map<String,String> mp) throws Exception
 	{
-		String s="-"+Constants.type;
+		String s="-".concat(Constants.type);
 		if (mp.get(s).equals(Constants.raw)==false && mp.get(s).equals(Constants.manufactured)==false && mp.get(s).equals(Constants.imported)==false)
 			throw new Exception("This Type is not in option");
 	}
 	
 	
-	public void checker(ArrayList<String> args,Map<String,String> mp) throws Exception
+	public void checker(final ArrayList<String> args,final Map<String,String> mp) throws Exception
 	{
 		credCheck(args);
 		parsingCheck(args);
@@ -66,7 +66,7 @@ public class Validator {
 	
 	
 	
-	public item getDetails(String[]args) throws Exception
+	public item getDetails(final  String[]args) throws Exception
 	{
 //		Creating data structure for passing 
 		ArrayList<String> list=new ArrayList<>(Arrays.asList(args));
@@ -81,10 +81,10 @@ public class Validator {
 		String name,type;
 		float price;
 		int quantity;
-		name=mp.get("-"+Constants.name);
-		price=Float.parseFloat(mp.get("-"+Constants.price));
+		name=mp.get("-".concat(Constants.name));
+		price=Float.parseFloat(mp.get("-".concat(Constants.price)));
 		type=mp.get("-"+Constants.type);
-		quantity=Integer.parseInt(mp.get("-"+Constants.quantity));
+		quantity=Integer.parseInt(mp.get("-".concat(Constants.quantity)));
 		return new item(name,price,quantity,type);
 	}
 
