@@ -4,7 +4,7 @@ public class NewUser {
     public static User getNewUser()
     {
         final Scanner sc = new Scanner(System.in);
-        String name , address;
+        String name ,address;
         int age,rollno;
         List<String> subj = new ArrayList<>();
         int max_sub=6;
@@ -40,6 +40,9 @@ public class NewUser {
                 break;
             count++;
         }
-        return  new User(name,age,rollno,address,subj);
+        User re=new User(name,age,rollno,address,subj);
+        if(re==null)
+            System.out.println("why?");
+        return  re;
     }
 }

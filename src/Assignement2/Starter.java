@@ -34,6 +34,39 @@ public class Starter {
     }
 
 
+    void sortingByChoice()
+    {
+        SortOpt sro=new SortOpt(us);
+        us=sro.getSorted();
+    }
+
+    void deleteRecored()
+    {
+        Scanner sc=new Scanner(System.in);
+        int searchRol=-3;
+        try
+        {
+            searchRol=Integer.parseInt(sc.next());
+        } catch(NumberFormatException e)
+        {
+            System.out.println("Invalid Input");
+        }
+        User rec=null;
+        for(User it:us)
+        {
+            if(it.getRollNumber()==searchRol)
+            {
+                rec=it;
+                break;
+            }
+        }
+        if(rec!=null)
+            us.remove(rec);
+        else
+            System.out.println("Record Not Present");
+    }
+
+
     void menu()
     {
         int count=0;
@@ -44,6 +77,15 @@ public class Starter {
             if(choice==1)
             {
                 addUser();
+            }
+            else if(choice==2)
+            {
+                sortingByChoice();
+            }
+
+            else if(choice==3)
+            {
+                deleteRecored();
             }
 
         }
