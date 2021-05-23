@@ -4,6 +4,11 @@ import java.util.*;
 public class Starter {
     Set<User> us;
 
+    Starter()
+    {
+        this.us=new StorgeClass().getUsers();
+    }
+
 
     int showOptions()
     {
@@ -28,8 +33,8 @@ public class Starter {
     {
         try {
             us.add(NewUser.getNewUser());
-        } catch (Exception e) {
-            System.out.println("Invalid Details entered : " + e.getMessage());
+       } catch (Exception e) {
+       System.out.println("Invalid Details entered : " + e.getMessage());
         }
     }
 
@@ -86,6 +91,16 @@ public class Starter {
             else if(choice==3)
             {
                 deleteRecored();
+            }
+            else if(choice==4)
+            {
+                StorgeClass stc=new StorgeClass();
+                stc.saveChanges(us);
+            }
+            else if(choice==5)
+            {
+                new StorgeClass().saveChanges(us);
+                System.exit(0);
             }
 
         }
