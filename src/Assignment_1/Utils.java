@@ -12,7 +12,7 @@ public final class Utils {
 	
 	private float rawTax(final float price)
 	{
-		float tax_of_raw= (float) ((12.5/Constants.hun)*price);
+		final float tax_of_raw= (float) ((12.5/Constants.hun)*price);
 		System.out.println(tax_of_raw);
 		return tax_of_raw;
 	}
@@ -25,8 +25,8 @@ public final class Utils {
 
 	private float manufacturedTax(final float price)
 	{
-		float rem_tax=(float) ((12.5/Constants.hun)*price);
-		float tax_of_manf=(float) (rem_tax+(2.0/Constants.hun)*price);
+		final float rem_tax=(float) ((12.5/Constants.hun)*price);
+		final float tax_of_manf=(float) (rem_tax+(2.0/Constants.hun)*price);
 		return tax_of_manf;
 	}
 	/**
