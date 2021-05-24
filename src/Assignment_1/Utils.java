@@ -38,12 +38,18 @@ public final class Utils {
 	private float importedTax(final float price)
 	{
 		float tax_of_import = (float) ((10.0 / Constants.hun)* price);
-        if (tax_of_import <= 100) 
-        	tax_of_import+= 5;
-        else if (tax_of_import <= 200) 
-        	tax_of_import += 10;
-        else 
-        	tax_of_import += (5.0 / Constants.hun) * (tax_of_import + price);
+        if (tax_of_import <= 100)
+		{
+			tax_of_import+= 5;
+		}
+        else if (tax_of_import <= 200)
+		{
+			tax_of_import += 10;
+		}
+        else
+		{
+			tax_of_import += (5.0 / Constants.hun) * (tax_of_import + price);
+		}
         return tax_of_import;
 	}
 	
@@ -56,11 +62,17 @@ public final class Utils {
 	public float calculateTax(final String type,final float price)
 	{
 		if(type.equalsIgnoreCase(Constants.raw))
+		{
 			return rawTax(price);
-		else if(type.equalsIgnoreCase(Constants.manufactured)) 
+		}
+		else if(type.equalsIgnoreCase(Constants.manufactured))
+		{
 			retrun manufacturedTax(price);
+		}
 		else if(type.equalsIgnoreCase(Constants.imported))
+		{
 			return importedTax(price);
+		}
 	}
 
 }

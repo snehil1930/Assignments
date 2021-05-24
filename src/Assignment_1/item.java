@@ -1,6 +1,5 @@
 package Assignment_1;
 
-import java.util.*;
 
 /**
  * This class is use to save details of item
@@ -41,7 +40,7 @@ public class item {
 	{
 	    Tax=new Utils().calculateTax(type,price);
 		System.out.println("Tax on item is:  "+Tax);
-		float totalPrice=price+Tax;
+		final float totalPrice=price+Tax;
 		finalPrice=quantity*totalPrice;
 	}
 	
@@ -107,7 +106,7 @@ public class item {
      * This is a printing method details in item
      */
 	
-	void display()
+	public void display()
 	{
 		System.out.println("Item_Name\tItem_price\tItem_Type\tItem_quantity\tTotalPrice");
 		System.out.println(name+"\t\t"+price+"\t\t"+type+"\t\t"+quantity+"\t  "+finalPrice);

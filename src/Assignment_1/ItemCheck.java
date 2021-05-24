@@ -6,26 +6,27 @@ import java.util.*;
  */
 public class ItemCheck {
 
+//	 created object globally
 	public static Validator vc=new Validator();
 	/**
 	  * default constructor
       */
 	ItemCheck(){
-		
+//		empty
 	}
 	/**
       * This method is use to validate input on exceptions and format of input
       */
 	
-	void nextInputs() throws Exception
+	private void nextInputs() throws Exception
 	{
 		System.out.println("Do you want to enter more choice.Enter Y/N");
 		final Scanner sc=new Scanner(System.in);
 		String ch=sc.nextLine();
-		while(ch.equalsIgnoreCase("n")==false)
+		while(!"n".equalsIgnoreCase(ch))
 		{
-			String inputs=sc.nextLine();
-			String ar[]=inputs.split(" ");
+			final String inputs=sc.nextLine();
+			final String ar[]=inputs.split(" ");
 			
 //			Inputs taken are verified in Validator
 			
@@ -45,7 +46,7 @@ public class ItemCheck {
       */
 	
 	
-	void initials(final String[]args)
+	public void initials(final String[]args)
 	{
     	try
 		{
