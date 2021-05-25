@@ -1,17 +1,33 @@
-package Assignement2;
+package assignement2;
 
-import java.util.*;
+import java.util.Scanner;
+import java.util.Set;
+/*
+ * This class is use to sort parameter according to choice
+ */
+
 public class SortOpt {
-    Set<User> us;
-    int choice;
-    int order;
-    SortOpt(Set<User> us)
-    {
-        this.us=us;
+
+    private Set<User> us;
+    private int choice;
+    private int order;
+    /*
+     * parameterized constructor in initialise set
+     * @param us set of user
+     */
+
+    public SortOpt(final Set<User> us) {
+        this.us = us;
     }
-    private void showdetails()
-    {
-        final Scanner sc=new Scanner(System.in);
+
+    /*
+     * Shows the options the user has to enter to do
+     * any particular sorting
+     */
+
+
+    private void showdetails() {
+        final Scanner sc = new Scanner(System.in);
         try {
             System.out.println("1. Sort by Name");
             System.out.println("2. Sort by Age");
@@ -22,33 +38,42 @@ public class SortOpt {
             System.out.println("1.Ascending Order");
             System.out.println("2. Descending order");
             order = Integer.parseInt(sc.nextLine());
-            if (order < 1 || order > 2 || choice < 1 || choice > 4)
+            if (order < Constants.ch_1 || order > Constants.ch_2 || choice < Constants.ch_1 || choice > Constants.ch_4) {
                 throw new Exception();
+            }
         } catch (Exception e) {
             System.out.println("Invalid choice entered !");
         }
     }
 
-    public Set<User> getSorted()
-    {
+    /*
+     * performing actual sorting based on choice and order entered
+     * @return the sorted user set
+     */
+    public Set<User> getSorted() {
         showdetails();
         us.stream().sorted((a, b) -> {
             int result = 0;
             switch (choice) {
-                case 1:
+                case Constants.ch_1:
                     result = a.getName().compareTo(b.getName());
                     break;
-                case 2:
+                case Constants.ch_2:
                     result = a.getRollNumber() - b.getRollNumber();
                     break;
-                case 3:
+                case Constants.ch_3:
                     result = a.getAge() - b.getAge();
                     break;
-                case 4:
+                case Constants.ch_5:
                     result = a.getAddress().compareTo(b.getAddress());
                     break;
+                default:
+                    System.out.println("Invalid option");
+                    break;
             }
-            if (order == 2) result = -result;
+            if (order == Constants.ch_2) {
+                result = -result;
+            }
             return result;
         }).forEach(System.out::println);
         return us;
