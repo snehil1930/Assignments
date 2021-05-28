@@ -1,19 +1,45 @@
 package assignement2;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /*
  * This class stores all the literals used in project
  */
-
 public class Constants {
-    //    maximium limit of option taking is set
-    public static final int max_limit = 100;
-    //    option checks are done with ch's
-    public static final int ch_1 = 1;
-    public static final int ch_2 = 2;
-    public static final int ch_3 = 3;
-    public static final int ch_4 = 4;
-    public static final int ch_5 = 5;
-    //    for printing spaces
-    public static final String tabs = "\t\t\t";
+
+    /*
+     * put a check on the limit of options input
+     */
+    public static final int MAX_LIMIT = 100;
+
+    /*
+     * The choices the user are going to enter
+     * in order to procced the process
+     * each option is clearly defined at the
+     * where it is use
+     */
+    public static final int CHOICE1 = 1;
+    public static final int CHOICE2 = 2;
+    public static final int CHOICE3 = 3;
+    public static final int CHOICE4 = 4;
+    public static final int CHOICE5 = 5;
+
+    /*
+     * initialise zero values to the counter and other place
+     */
+    public static final int ZERO = 0;
+
+    /*
+     * courses the user can select for the study
+     */
+    public static final ArrayList<String> AVAILABLESUBJECTS = new ArrayList<>(
+            Arrays.asList("A", "B", "C", "D", "E", "F"));
+
+    /*
+     * yes symbolise that user want to enter more option
+     */
+    public static final String YES = "Y";
 
 
 }

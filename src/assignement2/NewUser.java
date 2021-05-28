@@ -2,13 +2,44 @@ package assignement2;
 
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.util.Arrays;
+
 /*
- * This class is inputing all the parameter required
+ * This class is inputting all the parameter required
  * for the User
  */
-
 public class NewUser {
+
+    /*
+     * the function to enter the courses the user want to study
+     * @return subjects the user has selected
+     */
+    private static ArrayList<String> getCourse() {
+        final Scanner scan = new Scanner(System.in);
+        int count = Constants.ZERO;
+        final ArrayList<String> subjects = new ArrayList<>();
+        System.out.println("Available Subjects are A,B,C,D,E,F ");
+        String decision;
+        String subjectsInput;
+        while (count < Constants.CHOICE5) {
+            System.out.println("want to add subject ? if yes type 'y/Y' else type any character ");
+            decision = scan.next();
+            if (Constants.YES.equalsIgnoreCase(decision)) {
+                subjectsInput = scan.next();
+                if (Constants.AVAILABLESUBJECTS.contains(subjectsInput)) {
+                    subjects.add(subjectsInput);
+                } else {
+                    System.out.println("Available Subjects are A,B,C,D,E,F only.Select Among these !!");
+                    count = count - 1;
+                }
+            } else if (count < Constants.CHOICE4 && !(Constants.YES.equalsIgnoreCase(decision))) {
+                System.out.println("enter at least 4 subjects");
+            } else {
+                break;
+            }
+            count++;
+        }
+        return subjects;
+    }
 
     /*
      * method is taking input of name
@@ -18,51 +49,20 @@ public class NewUser {
      * and the course he choices
      * @return user class
      */
-
     public static User getNewUser() {
-        final Scanner sc = new Scanner(System.in);
-        ArrayList<String> subj = new ArrayList<>();
-        final int maxSub = Constants.ch_5;
+        final Scanner scan = new Scanner(System.in);
         System.out.println("Enter name");
-        String name = sc.next();
+        final String name = scan.next();
         System.out.println("Enter roll no");
-        int rollno = sc.nextInt();
-        if (rollno < 0) {
-
-            throw new NumberFormatException();
-        }
+        final int rollno = scan.nextInt();
         System.out.println("Enter age");
-        int age = sc.nextInt();
-        if (age < 0) {
-
-            throw new NumberFormatException();
-        }
+        final int age = scan.nextInt();
         System.out.println("Enter address");
-        String address = sc.next();
-        int count = 0;
-        System.out.println("Available Subjects are A,B,C,D,E,F ");
-        final ArrayList<String> availableSubjects = new ArrayList<>(Arrays.asList("A", "B", "C", "D", "E", "F"));
-        subj.add("A");
-        while (count < maxSub) {
-            System.out.println("want to add subject ? if yes type 'y/Y' else type any character ");
-            final String st = sc.next();
-            final String yes = "y";
-            if (yes.equalsIgnoreCase(st)) {
-                final String sub = sc.next();
-                if (availableSubjects.contains(sub)) {
-
-                    subj.add(sub);
-                } else {
-                    System.out.println("Available Subjects are A,B,C,D,E,F only.Select Among these !!");
-                    count = count - 1;
-                }
-            } else if (count < Constants.ch_4 && !(yes.equalsIgnoreCase(st))) {
-                System.out.println("enter at least 4 subjects");
-            } else {
-                break;
-            }
-            count++;
+        final String address = scan.next();
+        if (rollno < Constants.ZERO || age < Constants.ZERO) {
+            throw new NumberFormatException("Number is less than zero");
         }
-        return new User(name, age, rollno, address, subj);
+        final ArrayList<String> subjects = getCourse();
+        return new User(name, age, rollno, address, subjects);
     }
 }
