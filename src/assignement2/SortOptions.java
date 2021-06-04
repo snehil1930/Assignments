@@ -1,13 +1,15 @@
 package assignement2;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 import java.util.Set;
 
 /*
  * This class is use to sort parameter according to choice
  */
-public class SortOpt {
+public class SortOptions {
 
     /*
      * the users are stored in form of set for one build
@@ -25,7 +27,7 @@ public class SortOpt {
      * parameterized constructor in initialise set
      * @param us set of user
      */
-    public SortOpt(final Set<User> users) {
+    public SortOptions(final Set<User> users) {
         this.users = users;
     }
 
@@ -45,7 +47,8 @@ public class SortOpt {
             System.out.println("1.Ascending Order");
             System.out.println("2. Descending order");
             order = Integer.parseInt(scan.nextLine());
-            if (order < Constants.CHOICE1 || order > Constants.CHOICE2 || choice < Constants.CHOICE1 || choice > Constants.CHOICE4) {
+            if (order < Constants.CHOICE_1 || order > Constants.CHOICE_2
+                    || choice < Constants.CHOICE_1 || choice > Constants.CHOICE_4) {
                 throw new IOException("either order or choice is out of given range");
             }
         } catch (IOException e) {
@@ -55,34 +58,35 @@ public class SortOpt {
 
     /*
      * performing actual sorting based on choice and order entered
-     * @return the sorted user set
+     * and call required functions accordingly
+     * and print the data
      */
-    public Set<User> getSorted() {
+    public void getSorted() {
         showdetails();
-        users.stream().sorted((a, b) -> {
-            int result = Constants.ZERO;
-            switch (choice) {
-                case Constants.CHOICE1:
-                    result = a.getName().compareTo(b.getName());
-                    break;
-                case Constants.CHOICE2:
-                    result = a.getRollNumber() - b.getRollNumber();
-                    break;
-                case Constants.CHOICE3:
-                    result = a.getAge() - b.getAge();
-                    break;
-                case Constants.CHOICE4:
-                    result = a.getAddress().compareTo(b.getAddress());
-                    break;
-                default:
-                    System.out.println("Invalid option for choice");
-                    break;
-            }
-            if (order == Constants.CHOICE2) {
-                result = -result;
-            }
-            return result;
-        }).forEach(System.out::println);
-        return users;
+        ArrayList<User> tempUser = new ArrayList<>(users);
+        switch (choice) {
+            case Constants.CHOICE_1:
+                Collections.sort(tempUser, new SortByName());
+                break;
+            case Constants.CHOICE_2:
+                Collections.sort(tempUser, new SortByAge());
+                break;
+            case Constants.CHOICE_3:
+                Collections.sort(tempUser, new SortByRollNo());
+                break;
+            case Constants.CHOICE_4:
+                Collections.sort(tempUser, new SortByAddress());
+                break;
+            default:
+                System.out.println("Invalid option for choice");
+                break;
+        }
+        if (Constants.CHOICE_2 == order) {
+            Collections.reverse(tempUser);
+        }
+
+        for (int i = 0; i < tempUser.size(); i++) {
+            System.out.println(tempUser.get(i));
+        }
     }
 }

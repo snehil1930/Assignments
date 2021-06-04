@@ -20,18 +20,18 @@ public class NewUser {
         System.out.println("Available Subjects are A,B,C,D,E,F ");
         String decision;
         String subjectsInput;
-        while (count < Constants.CHOICE5) {
+        while (count < Constants.CHOICE_5) {
             System.out.println("want to add subject ? if yes type 'y/Y' else type any character ");
             decision = scan.next();
             if (Constants.YES.equalsIgnoreCase(decision)) {
                 subjectsInput = scan.next();
-                if (Constants.AVAILABLESUBJECTS.contains(subjectsInput)) {
+                if (Constants.AVAILABLE_SUBJECTS.contains(subjectsInput)) {
                     subjects.add(subjectsInput);
                 } else {
                     System.out.println("Available Subjects are A,B,C,D,E,F only.Select Among these !!");
-                    count = count - 1;
+                    count--;
                 }
-            } else if (count < Constants.CHOICE4 && !(Constants.YES.equalsIgnoreCase(decision))) {
+            } else if (count < Constants.CHOICE_4 && !(Constants.YES.equalsIgnoreCase(decision))) {
                 System.out.println("enter at least 4 subjects");
             } else {
                 break;
@@ -59,10 +59,9 @@ public class NewUser {
         final int age = scan.nextInt();
         System.out.println("Enter address");
         final String address = scan.next();
-        if (rollno < Constants.ZERO || age < Constants.ZERO) {
+        if (Constants.ZERO > rollno || Constants.ZERO > age) {
             throw new NumberFormatException("Number is less than zero");
         }
-        final ArrayList<String> subjects = getCourse();
-        return new User(name, age, rollno, address, subjects);
+        return new User(name, age, rollno, address, getCourse());
     }
 }

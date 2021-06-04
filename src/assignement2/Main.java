@@ -10,6 +10,6 @@ public class Main {
      * @param args  command line input
      */
     public static void main(final String[] args) {
-        new Starter().menu();
+        new StartTheChoicing().menu();
     }
 }

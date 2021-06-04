@@ -19,11 +19,11 @@ public class Constants {
      * each option is clearly defined at the
      * where it is use
      */
-    public static final int CHOICE1 = 1;
-    public static final int CHOICE2 = 2;
-    public static final int CHOICE3 = 3;
-    public static final int CHOICE4 = 4;
-    public static final int CHOICE5 = 5;
+    public static final int CHOICE_1 = 1;
+    public static final int CHOICE_2 = 2;
+    public static final int CHOICE_3 = 3;
+    public static final int CHOICE_4 = 4;
+    public static final int CHOICE_5 = 5;
 
     /*
      * initialise zero values to the counter and other place
@@ -33,7 +33,7 @@ public class Constants {
     /*
      * courses the user can select for the study
      */
-    public static final ArrayList<String> AVAILABLESUBJECTS = new ArrayList<>(
+    public static final ArrayList<String> AVAILABLE_SUBJECTS = new ArrayList<>(
             Arrays.asList("A", "B", "C", "D", "E", "F"));
 
     /*

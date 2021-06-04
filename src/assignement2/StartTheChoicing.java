@@ -8,7 +8,7 @@ import java.util.Set;
  * and try to class various method accordingly
  * It has us as a set of user
  */
-public class Starter {
+public class StartTheChoicing {
 
     /*
      *data structure to store the each user
@@ -16,9 +16,9 @@ public class Starter {
     private Set<User> users;
 
     /*This is a default constructor
-     * it instanties set from file
+     * it instant set from file
      */
-    public Starter() {
+    public StartTheChoicing() {
         this.users = new StorgeClass().getUsers();
     }
 
@@ -37,7 +37,7 @@ public class Starter {
             final Scanner scan = new Scanner(System.in);
             return scan.nextInt();
         } catch (NumberFormatException e) {
-            return Constants.CHOICE5;
+            return Constants.CHOICE_5;
         }
     }
 
@@ -57,7 +57,7 @@ public class Starter {
      * and parameter according to which ordering is done
      */
     private void sortingByChoice() {
-        users = new SortOpt(users).getSorted();
+        new SortOptions(users).getSorted();
     }
 
     /*
@@ -92,15 +92,15 @@ public class Starter {
         final StorgeClass stc = new StorgeClass();
         for (int count = Constants.ZERO; count <= Constants.MAX_LIMIT; count++) {
             final int choice = showOptions();
-            if (choice == Constants.CHOICE1) {
+            if (choice == Constants.CHOICE_1) {
                 addUser();
-            } else if (choice == Constants.CHOICE2) {
+            } else if (choice == Constants.CHOICE_2) {
                 sortingByChoice();
-            } else if (choice == Constants.CHOICE3) {
+            } else if (choice == Constants.CHOICE_3) {
                 deleteRecord();
-            } else if (choice == Constants.CHOICE4) {
+            } else if (choice == Constants.CHOICE_4) {
                 stc.saveChanges(users);
-            } else if (choice == Constants.CHOICE5) {
+            } else if (choice == Constants.CHOICE_5) {
                 stc.saveChanges(users);
                 System.exit(Constants.ZERO);
             }
