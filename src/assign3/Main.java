@@ -1,6 +1,6 @@
 package assign3;
 
-import assign3.Exception.InvalidInput;
+import assign3.contoller.Manager;
 
 /*
  * Main class of the program

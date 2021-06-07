@@ -1,14 +1,15 @@
-package assign3;
+package assign3.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import assign3.util.DfsOperator;
 import assign3.Exception.InvalidInput;
+
 /*
  * Class having all functions related to tree
  */
-
 public class Graph {
 
     /*
@@ -79,7 +80,7 @@ public class Graph {
      * @param nodeId id of the node
      * @return ArrayList of node
      */
-    public ArrayList<Integer> getImmediateParent(final int nodeId) {
+    public ArrayList<Integer> getImmediateParent(final Integer nodeId) {
         if (!nodeList.containsKey(nodeId)) {
             throw new InvalidInput(Constants.PRINT2);
         } else {
@@ -92,7 +93,7 @@ public class Graph {
      * @param nodeId unique id of node
      * @param node type class
      */
-    public void addNode(final int nodeId, final Node node) {
+    public void addNode(final Integer nodeId, final Node node) {
         if (!nodeList.containsKey(nodeId)) {
             nodeList.put(nodeId, node);
             child.put(nodeId, new ArrayList<>());
@@ -107,7 +108,7 @@ public class Graph {
      * @param node node to be find descendendants
      * @return Arraylist of the nodes
      */
-    public ArrayList<Integer> getImmediateChild(final int node) {
+    public ArrayList<Integer> getImmediateChild(final Integer node) {
         if (!nodeList.containsKey(node)) {
             throw new InvalidInput(Constants.PRINT2);
         } else {
@@ -116,10 +117,11 @@ public class Graph {
     }
 
     /*
-    * find all the ancestors from given node
-    * */
-
-    public ArrayList<Integer> getAllAncestors(int nodeId) {
+     * find all the ancestors from given node
+     * @param nodeId source id of node
+     * @return ArrayList of all Ancestors
+     */
+    public ArrayList<Integer> getAllAncestors(final Integer nodeId) {
         if (!nodeList.containsKey(nodeId)) {
             throw new InvalidInput(Constants.PRINT2);
         } else {
@@ -127,7 +129,12 @@ public class Graph {
         }
     }
 
-    public ArrayList<Integer> getAllDescendendants(int node) {
+    /*
+     * find all the descendendants from given node
+     * @param nodeId source id of node
+     * @return ArrayList of all Descendendants
+     */
+    public ArrayList<Integer> getAllDescendendants(final Integer node) {
         if (!nodeList.containsKey(node)) {
             throw new InvalidInput(Constants.PRINT2);
         } else {
@@ -135,42 +142,55 @@ public class Graph {
         }
     }
 
-
-    public void deleteDependency(final int parid, final int childid) {
-        if (!nodeList.containsKey(parid) || !nodeList.containsKey(childid))
+    /*
+     * remove the connection between the node ids if they are present
+     * @paran parId id of parent node
+     * @param  childId id of child node
+     */
+    public void deleteDependency(final Integer parId, final Integer childId) {
+        if (!nodeList.containsKey(parId) || !nodeList.containsKey(childId))
             throw new InvalidInput(Constants.PRINT2);
         else {
-            child.get(parid).remove(new Integer(childid));
-            parents.get(childid).remove(new Integer(parid));
+            child.get(parId).remove(childId);
+            parents.get(childId).remove(parId);
         }
     }
 
-    public void deleteNode(final int id) {
+    /*
+     * delete the node from graph and all connections to it
+     * @param id node which is to be deleted
+     */
+    public void deleteNode(final Integer id) {
         if (!nodeList.containsKey(id)) {
             throw new InvalidInput(Constants.PRINT2);
         } else {
             for (final Integer it : parents.get(id)) {
-                child.get(it).remove(new Integer(id));
+                child.get(it).remove(id);
             }
             parents.remove(id);
             for (final Integer it : child.get(id)) {
-                parents.get(it).remove(new Integer(id));
+                parents.get(it).remove(id);
             }
             child.remove(id);
             nodeList.remove(id);
         }
     }
 
-    void addDependency(final int parid, final int childid) {
-        if (!nodeList.containsKey(parid) || !nodeList.containsKey(childid)) {
+    /*
+     * it is used to add connection between nodes if it does not
+     * form cycle
+     * @param parId parent id of connection
+     * @param childId child node of connection
+     * */
+    public void addDependency(final Integer parId, final Integer childId) {
+        if (!nodeList.containsKey(parId) || !nodeList.containsKey(childId)) {
             throw new InvalidInput(Constants.PRINT2);
         } else {
-            child.get(parid).add(childid);
-            parents.get(childid).add(parid);
-            boolean toAdd = DfsOperator.checkCycle(child);
-            if (toAdd) {
-                child.get(parid).remove(childid);
-                parents.get(childid).remove(parid);
+            child.get(parId).add(childId);
+            parents.get(childId).add(parId);
+            if (DfsOperator.checkCycle(child)) {
+                child.get(parId).remove(childId);
+                parents.get(childId).remove(parId);
             }
         }
     }

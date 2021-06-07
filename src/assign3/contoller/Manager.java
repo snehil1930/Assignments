@@ -1,12 +1,16 @@
-package assign3;
+package assign3.contoller;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import assign3.model.Constants;
 import assign3.Exception.InvalidInput;
+import assign3.model.Graph;
+import assign3.model.Node;
+
 /*
  * all the operations of user entry is controlled from here
  */
-
 public class Manager {
 
     /*

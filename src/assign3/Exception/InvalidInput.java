@@ -1,7 +1,15 @@
 package assign3.Exception;
 
+/*
+ * exception class for wrong input by user
+ */
 public class InvalidInput extends RuntimeException {
-    public InvalidInput(final String message){
+
+    /*
+     * constructor for message passing
+     * @param message string to print error
+     */
+    public InvalidInput(final String message) {
         super(message);
     }
 }

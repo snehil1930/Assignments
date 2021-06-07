@@ -67,11 +67,14 @@ public final class Utils {
 		}
 		else if(type.equalsIgnoreCase(Constants.manufactured))
 		{
-			retrun manufacturedTax(price);
+			return manufacturedTax(price);
 		}
 		else if(type.equalsIgnoreCase(Constants.imported))
 		{
 			return importedTax(price);
+		}
+		else{
+			return 0;
 		}
 	}
 
