@@ -1,11 +1,11 @@
-package assign3.model;
+package assignthree.model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
-import assign3.util.DfsOperator;
-import assign3.Exception.InvalidInput;
+import assignthree.util.DfsOperatorUtils;
+import assignthree.exceptions.InvalidInput;
 
 /*
  * Class having all functions related to tree
@@ -15,17 +15,17 @@ public class Graph {
     /*
      * dependency of from parent to child relations
      */
-    private Map<Integer, ArrayList<Integer>> child = new HashMap<>();
+    private Map<Integer, ArrayList<Integer>> child = new ConcurrentHashMap<>();
 
     /*
      * Reverse Dependency of from child to parent
      */
-    private Map<Integer, ArrayList<Integer>> parents = new HashMap<>();
+    private Map<Integer, ArrayList<Integer>> parents = new ConcurrentHashMap<>();
 
     /*
      * adding node details of a node
      */
-    private Map<Integer, Node> nodeList = new HashMap<>();
+    private Map<Integer, Node> nodeList = new ConcurrentHashMap<>();
 
     /*
      * Getter function of the child map
@@ -82,9 +82,9 @@ public class Graph {
      */
     public ArrayList<Integer> getImmediateParent(final Integer nodeId) {
         if (!nodeList.containsKey(nodeId)) {
-            throw new InvalidInput(Constants.PRINT2);
+            throw new InvalidInput(FixConstants.PRINT_2);
         } else {
-            return child.get(nodeId);
+            return parents.get(nodeId);
         }
     }
 
@@ -110,9 +110,9 @@ public class Graph {
      */
     public ArrayList<Integer> getImmediateChild(final Integer node) {
         if (!nodeList.containsKey(node)) {
-            throw new InvalidInput(Constants.PRINT2);
+            throw new InvalidInput(FixConstants.PRINT_2);
         } else {
-            return parents.get(node);
+            return child.get(node);
         }
     }
 
@@ -123,9 +123,9 @@ public class Graph {
      */
     public ArrayList<Integer> getAllAncestors(final Integer nodeId) {
         if (!nodeList.containsKey(nodeId)) {
-            throw new InvalidInput(Constants.PRINT2);
+            throw new InvalidInput(FixConstants.PRINT_2);
         } else {
-            return DfsOperator.dfs(nodeId, parents);
+            return DfsOperatorUtils.dfs(nodeId, parents);
         }
     }
 
@@ -136,9 +136,9 @@ public class Graph {
      */
     public ArrayList<Integer> getAllDescendendants(final Integer node) {
         if (!nodeList.containsKey(node)) {
-            throw new InvalidInput(Constants.PRINT2);
+            throw new InvalidInput(FixConstants.PRINT_2);
         } else {
-            return DfsOperator.dfs(node, child);
+            return DfsOperatorUtils.dfs(node, child);
         }
     }
 
@@ -148,9 +148,10 @@ public class Graph {
      * @param  childId id of child node
      */
     public void deleteDependency(final Integer parId, final Integer childId) {
-        if (!nodeList.containsKey(parId) || !nodeList.containsKey(childId))
-            throw new InvalidInput(Constants.PRINT2);
-        else {
+        if (!nodeList.containsKey(parId) || !nodeList.containsKey(childId)) {
+            throw new InvalidInput(FixConstants.PRINT_2);
+        } else {
+
             child.get(parId).remove(childId);
             parents.get(childId).remove(parId);
         }
@@ -160,19 +161,19 @@ public class Graph {
      * delete the node from graph and all connections to it
      * @param id node which is to be deleted
      */
-    public void deleteNode(final Integer id) {
-        if (!nodeList.containsKey(id)) {
-            throw new InvalidInput(Constants.PRINT2);
+    public void deleteNode(final Integer nodeId) {
+        if (!nodeList.containsKey(nodeId)) {
+            throw new InvalidInput(FixConstants.PRINT_2);
         } else {
-            for (final Integer it : parents.get(id)) {
-                child.get(it).remove(id);
+            for (final Integer it : parents.get(nodeId)) {
+                child.get(it).remove(nodeId);
             }
-            parents.remove(id);
-            for (final Integer it : child.get(id)) {
-                parents.get(it).remove(id);
+            parents.remove(nodeId);
+            for (final Integer it : child.get(nodeId)) {
+                parents.get(it).remove(nodeId);
             }
-            child.remove(id);
-            nodeList.remove(id);
+            child.remove(nodeId);
+            nodeList.remove(nodeId);
         }
     }
 
@@ -184,11 +185,11 @@ public class Graph {
      * */
     public void addDependency(final Integer parId, final Integer childId) {
         if (!nodeList.containsKey(parId) || !nodeList.containsKey(childId)) {
-            throw new InvalidInput(Constants.PRINT2);
+            throw new InvalidInput(FixConstants.PRINT_2);
         } else {
             child.get(parId).add(childId);
             parents.get(childId).add(parId);
-            if (DfsOperator.checkCycle(child)) {
+            if (DfsOperatorUtils.checkCycle(child)) {
                 child.get(parId).remove(childId);
                 parents.get(childId).remove(parId);
             }

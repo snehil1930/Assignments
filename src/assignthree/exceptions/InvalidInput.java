@@ -1,4 +1,4 @@
-package assign3.Exception;
+package assignthree.exceptions;
 
 /*
  * exception class for wrong input by user

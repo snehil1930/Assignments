@@ -1,6 +1,6 @@
-package assign3;
+package assignthree;
 
-import assign3.contoller.Manager;
+import assignthree.contoller.Manager;
 
 /*
  * Main class of the program

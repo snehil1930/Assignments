@@ -1,4 +1,4 @@
-package assign3.model;
+package assignthree.model;
 
 /*
  * This class is use to store unique Node Of tree

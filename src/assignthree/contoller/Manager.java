@@ -1,12 +1,12 @@
-package assign3.contoller;
+package assignthree.contoller;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import assign3.model.Constants;
-import assign3.Exception.InvalidInput;
-import assign3.model.Graph;
-import assign3.model.Node;
+import assignthree.model.FixConstants;
+import assignthree.exceptions.InvalidInput;
+import assignthree.model.Graph;
+import assignthree.model.Node;
 
 /*
  * all the operations of user entry is controlled from here
@@ -22,11 +22,6 @@ public class Manager {
      * Object made of class function for calling different method
      */
     private final Graph graph = new Graph();
-
-
-    public Manager() {
-//        constructor is kept intentionally blank
-    }
 
     /*
      * operations users can perform on the graph
@@ -62,7 +57,7 @@ public class Manager {
     /*
      * this method get the list immediate child of input node
      */
-    private void immediatechild() {
+    private void immediateChild() {
         final int node = scan.nextInt();
         System.out.println(String.format("immediate child of %d", node));
         print(graph.getImmediateChild(node));
@@ -71,7 +66,7 @@ public class Manager {
     /*
      * this method find all the nodes that are subgraph of goven node
      */
-    private void ancestors() {
+    private void findAncestors() {
         final int node = scan.nextInt();
         System.out.println(String.format("ancestors of %d", node));
         print(graph.getAllAncestors(node));
@@ -80,7 +75,7 @@ public class Manager {
     /*
      * This method represent the previously connected node in a graph
      */
-    private void descendants() {
+    private void findDescendants() {
         final int node = scan.nextInt();
         System.out.println(String.format("descendants of %d", node));
         print(graph.getAllDescendendants(node));
@@ -135,40 +130,40 @@ public class Manager {
         graph.addNode(node2.getId(), node1);
         graph.addDependency(node1.getId(), node2.getId());
         showOptions();
-        int query = Constants.ZERO;
-        while (query < Constants.MAX_LIMIT) {
+        int query = FixConstants.ZERO;
+        while (query < FixConstants.MAX_LIMIT) {
             System.out.println("Do you Want enter more query.Press Y/N");
             final String answer = scan.next();
-            if (!Constants.YES.equals(answer)) {
+            if (!FixConstants.YES.equals(answer)) {
                 break;
             }
             final int choice = scan.nextInt();
-            if (choice < Constants.CHOICE_1 || choice > Constants.CHOICE_8) {
-                throw new InvalidInput(Constants.PRINT1);
+            if (choice < FixConstants.CHOICE_1 || choice > FixConstants.CHOICE_8) {
+                throw new InvalidInput(FixConstants.PRINT_1);
             }
             switch (choice) {
-                case Constants.CHOICE_1:
+                case FixConstants.CHOICE_1:
                     immediateParent();
                     break;
-                case Constants.CHOICE_2:
-                    immediatechild();
+                case FixConstants.CHOICE_2:
+                    immediateChild();
                     break;
-                case Constants.CHOICE_3:
-                    ancestors();
+                case FixConstants.CHOICE_3:
+                    findAncestors();
                     break;
-                case Constants.CHOICE_4:
-                    descendants();
+                case FixConstants.CHOICE_4:
+                    findDescendants();
                     break;
-                case Constants.CHOICE_5:
+                case FixConstants.CHOICE_5:
                     deleteDependency();
                     break;
-                case Constants.CHOICE_6:
+                case FixConstants.CHOICE_6:
                     deleteNode();
                     break;
-                case Constants.CHOICE_7:
+                case FixConstants.CHOICE_7:
                     addDependency();
                     break;
-                case Constants.CHOICE_8:
+                case FixConstants.CHOICE_8:
                     addNode();
                     break;
                 default:

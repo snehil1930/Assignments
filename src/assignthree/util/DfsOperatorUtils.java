@@ -1,6 +1,4 @@
-package assign3.util;
-
-import org.jetbrains.annotations.NotNull;
+package assignthree.util;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -9,7 +7,7 @@ import java.util.Map;
 /*
  * This class will perform all the searching based option depth wise
  */
-public class DfsOperator {
+public class DfsOperatorUtils {
 
     /*
      * dfs util function for the searching the node subtree
@@ -25,8 +23,9 @@ public class DfsOperator {
         final Iterator<Integer> i = child.get(src).listIterator();
         while (i.hasNext()) {
             final int n = i.next();
-            if (!visited[n])
+            if (!visited[n]){
                 dfsHelper(n, child, res, visited);
+            }
         }
     }
 
@@ -37,7 +36,7 @@ public class DfsOperator {
      */
     public static ArrayList<Integer> dfs(final int node, final Map<Integer, ArrayList<Integer>> child) {
         final int noOfNode = child.size();
-        boolean[] visited = new boolean[noOfNode + 1];
+        final boolean[] visited = new boolean[noOfNode + 1];
         final ArrayList<Integer> result = new ArrayList<>();
         dfsHelper(node, child, result, visited);
         result.remove(0);
@@ -54,10 +53,13 @@ public class DfsOperator {
      */
     public static boolean isCyclicUtil(final int node, final boolean[] visited,
                                        final boolean[] recStack, final Map<Integer, ArrayList<Integer>> child) {
-        if (recStack[node])
+        if (recStack[node]){
             return true;
-        if (visited[node])
+        }
+        if (visited[node]) {
             return false;
+
+        }
         visited[node] = true;
         recStack[node] = true;
         final ArrayList<Integer> children = child.get(node);
@@ -77,8 +79,8 @@ public class DfsOperator {
      */
     public static boolean checkCycle(final Map<Integer, ArrayList<Integer>> child) {
         final int noOfNode = child.size();
-        boolean[] visited = new boolean[noOfNode + 1];
-        boolean[] recStack = new boolean[noOfNode + 1];
+        final boolean[] visited = new boolean[noOfNode + 1];
+        final boolean[] recStack = new boolean[noOfNode + 1];
         for (int i = 1; i <= noOfNode; i++) {
             if (isCyclicUtil(i, visited, recStack, child)) {
                 return true;
