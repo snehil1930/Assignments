@@ -1,4 +1,7 @@
-package assignement2;
+package assignementtwo.model;
+
+import assignementtwo.model.Constants;
+import assignementtwo.model.User;
 
 import java.util.Scanner;
 import java.util.ArrayList;

@@ -1,4 +1,6 @@
-package assignement2;
+package assignementtwo;
+
+import assignementtwo.controller.StartTheChoicing;
 
 /*
  * This is a  main class to start the project

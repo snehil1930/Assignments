@@ -1,4 +1,7 @@
-package assignement2;
+package assignementtwo.datastorage;
+
+import assignementtwo.model.User;
+import assignementtwo.validation.Validation;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -42,7 +45,7 @@ public class StorgeClass {
             System.out.println("IO Exception Caught ");
         } finally {
             try {
-                if (outputStream != null && fileOutputStream != null) {
+                if (outputStream!=null && fileOutputStream!=null) {
                     fileOutputStream.close();
                     outputStream.close();
                 }
@@ -70,7 +73,7 @@ public class StorgeClass {
             e.printStackTrace();
         } finally {
             try {
-                if (objectInputStream != null && fileInputStream != null) {
+                if (objectInputStream!=null && fileInputStream!=null) {
                     fileInputStream.close();
                     objectInputStream.close();
                 }

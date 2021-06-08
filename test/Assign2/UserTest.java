@@ -1,6 +1,6 @@
 package Assign2;
 
-import assignement2.User;
+import assignementtwo.model.User;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -27,4 +27,36 @@ class UserTest {
         assertEquals(user.getAge(), 21);
         assertEquals(user.getEnrolledCourses(), courses);
     }
+    @Test
+    public void inputTest2(){
+        final ArrayList<String> courses = new ArrayList<>(
+                Arrays.asList("A", "B", "C", "D","E"));
+        final String name = "vishal";
+        final int age = 22;
+        final int rollno = 121;
+        final String address = "Baliya";
+        final User user = new User(name, age, rollno, address, courses);
+        assertNotNull(user);
+        assertEquals(user.getName(), "vishal");
+        assertEquals(user.getRollNumber(), 121);
+        assertEquals(user.getAge(), 22);
+        assertEquals(user.getEnrolledCourses(), courses);
+    }
+
+    @Test
+    public void inputTest3(){
+        final ArrayList<String> courses = new ArrayList<>(
+                Arrays.asList("A", "B", "C","E"));
+        final String name = "shubh";
+        final int age = 22;
+        final int rollno = 111;
+        final String address = "Bali";
+        final User user = new User(name, age, rollno, address, courses);
+        assertNotNull(user);
+        assertEquals(user.getName(), "shubh");
+        assertEquals(user.getRollNumber(), 111);
+        assertEquals(user.getAge(), 22);
+        assertEquals(user.getEnrolledCourses(), courses);
+    }
+
 }

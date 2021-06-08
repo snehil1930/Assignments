@@ -1,4 +1,6 @@
-package assignement2;
+package assignementtwo.sorting;
+
+import assignementtwo.model.User;
 
 import java.util.Comparator;
 

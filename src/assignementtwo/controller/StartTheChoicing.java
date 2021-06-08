@@ -1,4 +1,10 @@
-package assignement2;
+package assignementtwo.controller;
+
+import assignementtwo.model.NewUser;
+import assignementtwo.datastorage.StorgeClass;
+import assignementtwo.model.Constants;
+import assignementtwo.model.User;
+import assignementtwo.validation.Validation;
 
 import java.util.Scanner;
 import java.util.Set;
@@ -78,7 +84,7 @@ public class StartTheChoicing {
                 break;
             }
         }
-        if (record == null) {
+        if (new Validation().checkTheNull(record)) {
             System.out.println("Record Not Present in the data");
         } else {
             users.remove(record);
