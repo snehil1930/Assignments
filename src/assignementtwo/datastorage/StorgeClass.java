@@ -45,7 +45,7 @@ public class StorgeClass {
             System.out.println("IO Exception Caught ");
         } finally {
             try {
-                if (outputStream!=null && fileOutputStream!=null) {
+                if (!new Validation().checkTheNull(outputStream) && !new Validation().checkTheNull(fileOutputStream)) {
                     fileOutputStream.close();
                     outputStream.close();
                 }
@@ -73,7 +73,7 @@ public class StorgeClass {
             e.printStackTrace();
         } finally {
             try {
-                if (objectInputStream!=null && fileInputStream!=null) {
+                if (!new Validation().checkTheNull(objectInputStream) && !new Validation().checkTheNull(fileInputStream)) {
                     fileInputStream.close();
                     objectInputStream.close();
                 }
