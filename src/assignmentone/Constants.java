@@ -1,4 +1,4 @@
-package Assignment_1;
+package assignmentone;
 
 /**
  * This class is made to avoid the use of repeated value
@@ -22,9 +22,10 @@ public class Constants {
 
 //    constants of 100
 
-    public static final float hun = 100.0f;
+    public static final float hundred = 100.0f;
 
 //    contsants "-" before paramter of item;
 
     public static final String dash = "-";
+    public static final int ZERO=0;
 }
