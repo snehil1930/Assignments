@@ -1,18 +1,41 @@
 package assignmentone;
 
-
 /*
  * This class is use to save details of item
- * calulate final price
+ * calculate final price
  * display details of item
- * getter fuctions of variable
+ * getter functions of variable
  */
 public class Item {
+
+    /*
+     * This will store the name of item
+     */
     private final String name;
+
+    /*
+     * This  will store the price of one item
+     */
     private final float price;
+
+    /*
+     * This will store the type of item
+     */
     private final String type;
+
+    /*
+     * This will store number of item
+     */
     private final int quantity;
-    private  float tax;
+
+    /*
+     * This will store the tax applied on that item
+     */
+    private float tax;
+
+    /*
+     * This will store the final  payable amount needed to be paid
+     */
     private float finalPrice;
 
     /*
@@ -33,11 +56,10 @@ public class Item {
     /*
      * This is a method to sum up the tax and generate final price
      */
-    public void totaling() {
-        tax = new Utils().calculateTax(type, price);
+    public void calculateFinalPrice() {
+        tax = TaxUtils.calculateTax(type, price);
         System.out.println("Tax on item is:  " + tax);
-        final float totalPrice = price + tax;
-        finalPrice = quantity * totalPrice;
+        finalPrice = quantity * (price+tax);
     }
 
     /*
@@ -77,11 +99,11 @@ public class Item {
     }
 
     /*
-     * This is a getter method of finalprice of item
+     * This is a getter method of final price of item
      *
-     * @return finalprice of item
+     * @return final price of item
      */
-    public float getfinalPrice() {
+    public float getFinalPrice() {
         return finalPrice;
     }
 
@@ -97,8 +119,15 @@ public class Item {
     /*
      * This is a printing method details in item
      */
-    public void display() {
-        System.out.println("Item_Name\tItem_price\tItem_Type\tItem_quantity\tTotalPrice");
-        System.out.println(name + "\t\t" + price + "\t\t" + type + "\t\t" + quantity + "\t  " + finalPrice);
+    @Override
+    public String toString() {
+        return "Item{" +
+                "name='" + name + '\'' +
+                ", price=" + price +
+                ", type='" + type + '\'' +
+                ", quantity=" + quantity +
+                ", tax=" + tax +
+                ", finalPrice=" + finalPrice +
+                '}';
     }
 }

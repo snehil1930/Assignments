@@ -1,8 +1,14 @@
 package assignmentone.exceptions;
 
-public class InvalidInputError extends RuntimeException{
+/*
+ * class is created to throw runtime exception
+ */
+public class InvalidInputError extends RuntimeException {
 
-    public InvalidInputError(final String message){
+    /*
+     * constructor use for calling super class with message that is pass
+     */
+    public InvalidInputError(final String message) {
         super(message);
     }
 }

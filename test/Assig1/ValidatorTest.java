@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 /*
  * This class tests Assignment 1 on different testcase
  */
-class valdatortester {
+class ValidatorTest {
 
     private Validator validator;
 
@@ -110,9 +110,9 @@ class valdatortester {
         validator = new Validator();
         String[] args = new String[]{"-name", "snehil", "-type", "raw", "-price", "123", "-quantity", "2"};
         Item it = validator.getDetails(args);
-        it.totaling();
+        it.calculateFinalPrice();
         float expected = (float) 276.75;
-        assertEquals(it.getfinalPrice(), expected);
+        assertEquals(it.getFinalPrice(), expected);
     }
 
 
@@ -124,9 +124,9 @@ class valdatortester {
         String[] args = new String[]{"-name", "snehil", "-type", "imported", "-price", "123", "-quantity", "2"};
         validator = new Validator();
         Item item = validator.getDetails(args);
-        item.totaling();
+        item.calculateFinalPrice();
         float expected = (float) 280.6;
-        assertEquals(item.getfinalPrice(), expected);
+        assertEquals(item.getFinalPrice(), expected);
     }
 
     /*
@@ -137,9 +137,9 @@ class valdatortester {
         String[] args = new String[]{"-name", "snehil", "-type", "manufactured", "-price", "123", "-quantity", "2"};
         validator = new Validator();
         Item it = validator.getDetails(args);
-        it.totaling();
+        it.calculateFinalPrice();
         float expected = (float) 281.66998;
-        assertEquals(it.getfinalPrice(), expected);
+        assertEquals(it.getFinalPrice(), expected);
     }
 
 }
