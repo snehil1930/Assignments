@@ -1,7 +1,8 @@
-package assignmentone;
+package assignmentone.businesslogic;
 
 import assignmentone.constants.MessageConstants;
 import assignmentone.constants.ValueConstants;
+import assignmentone.utils.ValidatorUtils;
 
 import java.util.*;
 
@@ -13,7 +14,6 @@ public class ItemCheck {
     /*
      * creating validation check on the input
      */
-    public static  Validator validator;
 
     /*
      * This method is use to validate input on exceptions and format of input
@@ -25,7 +25,7 @@ public class ItemCheck {
         while (ValueConstants.YES.equalsIgnoreCase(choice)) {
             final var inputs = scan.nextLine();
             final var inputsArray = inputs.split(" ");
-            final var item = validator.getDetails(inputsArray);
+            final var item = ValidatorUtils.getDetails(inputsArray);
             item.calculateFinalPrice();
             System.out.println(item);
             System.out.println(MessageConstants.MESSAGE1);
@@ -39,8 +39,7 @@ public class ItemCheck {
      * @param args array of string is taken as input
      */
     public void initials(final String... args) {
-        validator =new Validator();
-        final var item = validator.getDetails(args);
+        final var item = ValidatorUtils.getDetails(args);
         System.out.println(item);
         nextInputs();
     }

@@ -1,13 +1,15 @@
 package assignementtwo.controller;
 
-import assignementtwo.model.Constants;
+import assignementtwo.constant.ErrorConstants;
+import assignementtwo.constant.MessageConstants;
+import assignementtwo.constant.ValueConstants;
 import assignementtwo.model.User;
 import assignementtwo.sorting.SortByAddress;
 import assignementtwo.sorting.SortByAge;
 import assignementtwo.sorting.SortByName;
 import assignementtwo.sorting.SortByRollNo;
+import assignmentone.exceptions.InvalidInputError;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
@@ -24,10 +26,13 @@ public class SortOptions {
     private final Set<User> users;
 
     /*
-     * the value of choice of item
-     * and the order of choice in ascending or descending
+     * the value of choice of item in sorting parameter
      */
     private int choice;
+
+    /*
+     * order for ascending or descending
+     */
     private int order;
 
     /*
@@ -43,23 +48,21 @@ public class SortOptions {
      * any particular sorting
      */
     private void showdetails() {
-        final Scanner scan = new Scanner(System.in);
-        System.out.println("1. Sort by Name");
-        System.out.println("2. Sort by Age");
-        System.out.println("3. Sort by RollNo.");
-        System.out.println("4. Sort by Address");
+        final var scan = new Scanner(System.in);
+        MessageConstants.choiceMessage();
+
         try {
             choice = Integer.parseInt(scan.nextLine());
-            System.out.println("Please enter the order.Option are...");
-            System.out.println("1.Ascending Order");
-            System.out.println("2. Descending order");
+            MessageConstants.choiceMessage();
             order = Integer.parseInt(scan.nextLine());
-            if (order < Constants.CHOICE_1 || order > Constants.CHOICE_2
-                    || choice < Constants.CHOICE_1 || choice > Constants.CHOICE_4) {
-                throw new IOException("either order or choice is out of given range");
+            if (order < ValueConstants.CHOICE_1
+                    || order > ValueConstants.CHOICE_2
+                    || choice < ValueConstants.CHOICE_1
+                    || choice > ValueConstants.CHOICE_4) {
+                throw new InvalidInputError(ErrorConstants.ERROR_2);
             }
-        } catch (IOException e) {
-            System.out.println(String.format("Invalid choice entered !%s", e.getMessage()));
+        } catch (InvalidInputError exception) {
+            System.out.println("Invalid choice" + exception.getMessage());
         }
     }
 
@@ -70,30 +73,28 @@ public class SortOptions {
      */
     public void getSorted() {
         showdetails();
-        ArrayList<User> tempUser = new ArrayList<>(users);
+        final var tempUser = new ArrayList<>(users);
         switch (choice) {
-            case Constants.CHOICE_1:
+            case ValueConstants.CHOICE_1:
                 Collections.sort(tempUser, new SortByName());
                 break;
-            case Constants.CHOICE_2:
+            case ValueConstants.CHOICE_2:
                 Collections.sort(tempUser, new SortByAge());
                 break;
-            case Constants.CHOICE_3:
+            case ValueConstants.CHOICE_3:
                 Collections.sort(tempUser, new SortByRollNo());
                 break;
-            case Constants.CHOICE_4:
+            case ValueConstants.CHOICE_4:
                 Collections.sort(tempUser, new SortByAddress());
                 break;
             default:
-                System.out.println("Invalid option for choice");
+                System.out.println(ErrorConstants.ERROR_1);
                 break;
         }
-        if (Constants.CHOICE_2 == order) {
+        if (ValueConstants.CHOICE_2 == order) {
             Collections.reverse(tempUser);
         }
 
-        for (int i = 0; i < tempUser.size(); i++) {
-            System.out.println(tempUser.get(i));
-        }
+        tempUser.forEach(System.out::println);
     }
 }

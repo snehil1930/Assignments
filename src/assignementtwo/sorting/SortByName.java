@@ -11,7 +11,7 @@ import java.util.Comparator;
 public class SortByName implements Comparator<User> {
 
     @Override
-    public int compare(User a, User b) {
+    public int compare(final User a,final User b) {
         return a.getName().compareTo(b.getName());
     }
 }

@@ -1,8 +1,11 @@
 package assignementtwo.controller;
 
+import assignementtwo.constant.ErrorConstants;
+import assignementtwo.constant.MessageConstants;
+import assignementtwo.constant.ValueConstants;
+import assignementtwo.exception.InvalidInputError;
 import assignementtwo.model.NewUser;
 import assignementtwo.datastorage.StorgeClass;
-import assignementtwo.model.Constants;
 import assignementtwo.model.User;
 import assignementtwo.validation.Validation;
 
@@ -19,7 +22,7 @@ public class StartTheChoicing {
     /*
      *data structure to store the each user
      */
-    private Set<User> users;
+    private final Set<User> users;
 
     /*This is a default constructor
      * it instant set from file
@@ -33,17 +36,13 @@ public class StartTheChoicing {
      * @return choice of user
      */
     private int showOptions() {
-        System.out.println("Here is options number and task they perform on pressing them");
-        System.out.println("1. Add user details");
-        System.out.println("2. Sort user details according to choice and order specified");
-        System.out.println("3. Delete user details");
-        System.out.println("4. Save user details");
-        System.out.println("5. Exit");
+
+        MessageConstants.openingMessage();
         try {
-            final Scanner scan = new Scanner(System.in);
+            final var scan = new Scanner(System.in);
             return scan.nextInt();
-        } catch (NumberFormatException e) {
-            return Constants.CHOICE_5;
+        } catch (NumberFormatException exception) {
+            return ValueConstants.CHOICE_5;
         }
     }
 
@@ -51,11 +50,9 @@ public class StartTheChoicing {
      * This method adds new user in the list
      */
     private void addUser() {
-        try {
-            users.add(NewUser.getNewUser());
-        } catch (Exception e) {
-            System.out.println(String.format("Invalid Details entered : %s", e.getMessage()));
-        }
+
+        users.add(NewUser.getNewUser());
+        throw new InvalidInputError(ErrorConstants.ERROR_1);
     }
 
     /*
@@ -67,26 +64,25 @@ public class StartTheChoicing {
     }
 
     /*
-     * Delete the record if roll no is found
+     * Delete the record if roll number is found
      */
-    private void deleteRecord() {
-        final Scanner scan = new Scanner(System.in);
-        int searchRoll = Constants.ZERO;
-        try {
-            searchRoll = Integer.parseInt(scan.next());
-        } catch (NumberFormatException e) {
-            System.out.println("Invalid Input less than zero for roll number");
-        }
+    private void deleteRecordByRollNumber() {
+        final var scan = new Scanner(System.in);
         User record = null;
-        for (final User iterator : users) {
-            if (iterator.getRollNumber() == searchRoll) {
+        var searchRollNumber = ValueConstants.ZERO;
+        try {
+            searchRollNumber = Integer.parseInt(scan.next());
+            throw new InvalidInputError(ErrorConstants.ERROR_1);
+        } catch (InvalidInputError exception) {
+            System.out.println(ErrorConstants.ERROR_1);
+        }
+        for (final var iterator : users) {
+            if (iterator.getRollNumber() == searchRollNumber) {
                 record = iterator;
                 break;
             }
         }
-        if (new Validation().checkTheNull(record)) {
-            System.out.println("Record Not Present in the data");
-        } else {
+        if (!new Validation().checkTheNull(record)) {
             users.remove(record);
         }
     }
@@ -95,20 +91,21 @@ public class StartTheChoicing {
      * Driver method for other options
      */
     public void menu() {
-        final StorgeClass stc = new StorgeClass();
-        for (int count = Constants.ZERO; count <= Constants.MAX_LIMIT; count++) {
-            final int choice = showOptions();
-            if (choice == Constants.CHOICE_1) {
+        final var storgeClass = new StorgeClass();
+        for (var count = ValueConstants.ZERO;
+             count <= ValueConstants.MAX_LIMIT; count++) {
+            final var choice = showOptions();
+            if (choice == ValueConstants.CHOICE_1) {
                 addUser();
-            } else if (choice == Constants.CHOICE_2) {
+            } else if (choice == ValueConstants.CHOICE_2) {
                 sortingByChoice();
-            } else if (choice == Constants.CHOICE_3) {
-                deleteRecord();
-            } else if (choice == Constants.CHOICE_4) {
-                stc.saveChanges(users);
-            } else if (choice == Constants.CHOICE_5) {
-                stc.saveChanges(users);
-                System.exit(Constants.ZERO);
+            } else if (choice == ValueConstants.CHOICE_3) {
+                deleteRecordByRollNumber();
+            } else if (choice == ValueConstants.CHOICE_4) {
+                storgeClass.saveChanges(users);
+            } else if (choice == ValueConstants.CHOICE_5) {
+                storgeClass.saveChanges(users);
+                System.exit(ValueConstants.ZERO);
             }
         }
     }

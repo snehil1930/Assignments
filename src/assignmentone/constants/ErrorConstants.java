@@ -20,7 +20,8 @@ public class ErrorConstants {
     /*
      * invalid for price and quantity
      */
-    public static final String ERROR4 = "Invalid input for price and quantity !";
+    public static final String ERROR4 =
+            "Invalid input for price and quantity !";
 
     /*
      * No value of type is entered

@@ -1,4 +1,4 @@
-package assignmentone;
+package assignmentone.utils;
 
 import assignmentone.constants.ParameterConstants;
 import assignmentone.constants.ValueConstants;
@@ -68,7 +68,7 @@ public final class TaxUtils {
     }
 
     /*
-     * This method calulate tax of imported item
+     * This method calculate tax of imported item
      *
      * @param price price of item in real number
      * @return tax of imported item

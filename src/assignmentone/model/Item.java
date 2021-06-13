@@ -1,4 +1,6 @@
-package assignmentone;
+package assignmentone.model;
+
+import assignmentone.utils.TaxUtils;
 
 /*
  * This class is use to save details of item

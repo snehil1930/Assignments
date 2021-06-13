@@ -1,4 +1,6 @@
-package assignmentone;
+package assignmentone.service;
+
+import assignmentone.businesslogic.ItemCheck;
 
 /*
  * This is a main class from here work starts

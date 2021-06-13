@@ -41,7 +41,8 @@ public class User implements Comparable<User>, Serializable {
      * @param address user address
      * @param enrolledCourse list of Course
      */
-    public User(final String name, final int age, final int rollNumber, final String address, final ArrayList<String> enrolledCourses) {
+    public User(final String name, final int age, final int rollNumber,
+                final String address, final ArrayList<String> enrolledCourses) {
         this.name = name;
         this.age = age;
         this.address = address;

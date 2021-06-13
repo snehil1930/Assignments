@@ -1,7 +1,7 @@
 package assignementtwo.model;
 
-import assignementtwo.model.Constants;
-import assignementtwo.model.User;
+import assignementtwo.constant.MessageConstants;
+import assignementtwo.constant.ValueConstants;
 
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -17,25 +17,26 @@ public class NewUser {
      * @return subjects the user has selected
      */
     private static ArrayList<String> getCourse() {
-        final Scanner scan = new Scanner(System.in);
-        int count = Constants.ZERO;
+        final var scan = new Scanner(System.in);
+        int count = ValueConstants.ZERO;
         final ArrayList<String> subjects = new ArrayList<>();
-        System.out.println("Available Subjects are A,B,C,D,E,F ");
+        System.out.println(MessageConstants.MESSAGE_1);
         String decision;
         String subjectsInput;
-        while (count < Constants.CHOICE_5) {
-            System.out.println("want to add subject ? if yes type 'y/Y' else type any character ");
+        while (count < ValueConstants.CHOICE_5) {
+            System.out.println(MessageConstants.MESSAGE_2);
             decision = scan.next();
-            if (Constants.YES.equalsIgnoreCase(decision)) {
+            if (ValueConstants.YES.equalsIgnoreCase(decision)) {
                 subjectsInput = scan.next();
-                if (Constants.AVAILABLE_SUBJECTS.contains(subjectsInput)) {
+                if (ValueConstants.AVAILABLE_SUBJECTS.contains(subjectsInput)) {
                     subjects.add(subjectsInput);
                 } else {
-                    System.out.println("Available Subjects are A,B,C,D,E,F only.Select Among these !!");
+                    System.out.println(MessageConstants.MESSAGE_3);
                     count--;
                 }
-            } else if (count < Constants.CHOICE_4 && !(Constants.YES.equalsIgnoreCase(decision))) {
-                System.out.println("enter at least 4 subjects");
+            } else if (count < ValueConstants.CHOICE_4
+                    && !(ValueConstants.YES.equalsIgnoreCase(decision))) {
+                System.out.println(MessageConstants.MESSAGE_4);
             } else {
                 break;
             }
@@ -53,16 +54,16 @@ public class NewUser {
      * @return user class
      */
     public static User getNewUser() {
-        final Scanner scan = new Scanner(System.in);
-        System.out.println("Enter name");
+        final var scan = new Scanner(System.in);
+        System.out.println(MessageConstants.MESSAGE_5);
         final String name = scan.next();
-        System.out.println("Enter roll no");
-        final int rollno = scan.nextInt();
-        System.out.println("Enter age");
-        final int age = scan.nextInt();
-        System.out.println("Enter address");
+        System.out.println(MessageConstants.MESSAGE_6);
+        final var rollno = scan.nextInt();
+        System.out.println(MessageConstants.MESSAGE_7);
+        final var age = scan.nextInt();
+        System.out.println(MessageConstants.MESSAGE_8);
         final String address = scan.next();
-        if (Constants.ZERO > rollno || Constants.ZERO > age) {
+        if (ValueConstants.ZERO > rollno || ValueConstants.ZERO > age) {
             throw new NumberFormatException("Number is less than zero");
         }
         return new User(name, age, rollno, address, getCourse());

@@ -10,7 +10,7 @@ import java.util.Comparator;
  */
 public class SortByAddress implements Comparator<User> {
     @Override
-    public int compare(User a, User b) {
+    public int compare(final User a, final User b) {
         return a.getAddress().compareTo(b.getAddress());
     }
 }

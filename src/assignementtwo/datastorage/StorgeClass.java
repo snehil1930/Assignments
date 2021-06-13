@@ -1,5 +1,7 @@
 package assignementtwo.datastorage;
 
+import assignementtwo.constant.ErrorConstants;
+import assignementtwo.constant.MessageConstants;
 import assignementtwo.model.User;
 import assignementtwo.validation.Validation;
 
@@ -24,12 +26,6 @@ public class StorgeClass {
     private static final String FILENAME = "userdetails.txt";
 
     /*
-     * Default constructor
-     */
-    public StorgeClass() {
-    }
-
-    /*
      * it takes data from set amd store in file
      * before exiting
      * @param us set of user
@@ -42,18 +38,19 @@ public class StorgeClass {
             outputStream = new ObjectOutputStream(fileOutputStream);
             outputStream.writeObject(users);
         } catch (IOException e) {
-            System.out.println("IO Exception Caught ");
+            System.out.println(ErrorConstants.ERROR_3);
         } finally {
             try {
-                if (!new Validation().checkTheNull(outputStream) && !new Validation().checkTheNull(fileOutputStream)) {
+                if (!new Validation().checkTheNull(outputStream)
+                        && !new Validation().checkTheNull(fileOutputStream)) {
                     fileOutputStream.close();
                     outputStream.close();
                 }
             } catch (IOException exception) {
-                System.out.println("Output Stream is not working");
+                System.out.println(ErrorConstants.ERROR_4);
             }
         }
-        System.out.println("Saved to disk");
+        System.out.println(MessageConstants.MESSAGE_9);
     }
 
     /*
@@ -70,15 +67,16 @@ public class StorgeClass {
             objectInputStream = new ObjectInputStream(fileInputStream);
             users = (Set<User>) objectInputStream.readObject();
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         } finally {
             try {
-                if (!new Validation().checkTheNull(objectInputStream) && !new Validation().checkTheNull(fileInputStream)) {
+                if (!new Validation().checkTheNull(objectInputStream)
+                        && !new Validation().checkTheNull(fileInputStream)) {
                     fileInputStream.close();
                     objectInputStream.close();
                 }
             } catch (IOException exception) {
-                System.out.println("Input stream is not working");
+                System.out.println(ErrorConstants.ERROR_4);
             }
         }
         return users;

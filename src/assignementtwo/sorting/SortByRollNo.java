@@ -1,6 +1,7 @@
 package assignementtwo.sorting;
 
 import assignementtwo.model.User;
+
 import java.util.Comparator;
 
 /*
@@ -9,7 +10,7 @@ import java.util.Comparator;
  */
 public class SortByRollNo implements Comparator<User> {
     @Override
-    public int compare(User a, User b) {
+    public int compare(final User a, final User b) {
         return a.getRollNumber() - b.getRollNumber();
     }
 }

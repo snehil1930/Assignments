@@ -1,10 +1,10 @@
 package Assig1;
 
-import assignmentone.*;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 import assignmentone.exceptions.InvalidInputError;
+import assignmentone.model.Item;
+import assignmentone.utils.ValidatorUtils;
 import org.junit.jupiter.api.Test;
 
 /*
@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
  */
 class ValidatorTest {
 
-    private Validator validator;
+    private ValidatorUtils validator;
 
     /*
      * This test method is used to check whether correct input is passing test or not
@@ -21,7 +21,7 @@ class ValidatorTest {
     void devTest() throws Exception {
 
         String[] args = new String[]{"-name", "snehil", "-type", "raw", "-price", "123", "-quantity", "2"};
-        validator = new Validator();
+        validator = new ValidatorUtils();
         Item item = validator.getDetails(args);
         assertNotNull(item);
         assertNotNull(item.getName());
@@ -41,7 +41,7 @@ class ValidatorTest {
 
         assertThrows(InvalidInputError.class, () -> {
             String[] temp = new String[]{"-type", "raw", "-name", "snehil"};
-            new Validator().getDetails(temp);
+            new ValidatorUtils().getDetails(temp);
         });
     }
 
@@ -52,7 +52,7 @@ class ValidatorTest {
     public void invalidTypeTest() throws Exception {
         assertThrows(InvalidInputError.class, () -> {
             String[] temp = new String[]{"-name", "snehil", "-type", "exported"};
-            new Validator().getDetails(temp);
+            new ValidatorUtils().getDetails(temp);
         });
     }
 
@@ -63,7 +63,7 @@ class ValidatorTest {
     public void invalidPriceTest() throws Exception {
         assertThrows(InvalidInputError.class, () -> {
             String[] temp = new String[]{"-name", "snehil", "-type", "exported", "-price", "-34"};
-            new Validator().getDetails(temp);
+            new ValidatorUtils().getDetails(temp);
         });
     }
 
@@ -74,7 +74,7 @@ class ValidatorTest {
     public void invalidQuantityTest() throws Exception {
         assertThrows(InvalidInputError.class, () -> {
             String[] temp = new String[]{"-name", "snehil", "type", "exported", "price", "34", "quantity", "-3"};
-            new Validator().getDetails(temp);
+            new ValidatorUtils().getDetails(temp);
         });
     }
 
@@ -85,7 +85,7 @@ class ValidatorTest {
     public void typeMissingTest() throws Exception {
         assertThrows(InvalidInputError.class, () -> {
             String[] temp = new String[]{"-name", "snehil", "-price", "34"};
-            new Validator().getDetails(temp);
+            new ValidatorUtils().getDetails(temp);
         });
     }
 
@@ -96,7 +96,7 @@ class ValidatorTest {
     public void negativeErrorTest() throws Exception {
         Throwable exception=assertThrows(NumberFormatException.class, () -> {
             String[] temp = new String[]{"-name", "snehil", "-type", "imported", "-price", "34"};
-            new Validator().getDetails(temp);
+            new ValidatorUtils().getDetails(temp);
         });
         assertNotEquals("Invalid Input",exception.getMessage());
     }
@@ -107,7 +107,7 @@ class ValidatorTest {
      */
     @Test
     void finalPriceRawTest() throws Exception {
-        validator = new Validator();
+        validator = new ValidatorUtils();
         String[] args = new String[]{"-name", "snehil", "-type", "raw", "-price", "123", "-quantity", "2"};
         Item it = validator.getDetails(args);
         it.calculateFinalPrice();
@@ -122,7 +122,7 @@ class ValidatorTest {
     @Test
     void finalPriceImportedTest() throws Exception {
         String[] args = new String[]{"-name", "snehil", "-type", "imported", "-price", "123", "-quantity", "2"};
-        validator = new Validator();
+        validator = new ValidatorUtils();
         Item item = validator.getDetails(args);
         item.calculateFinalPrice();
         float expected = (float) 280.6;
@@ -135,11 +135,10 @@ class ValidatorTest {
     @Test
     public void finalPriceManufacturedTest() {
         String[] args = new String[]{"-name", "snehil", "-type", "manufactured", "-price", "123", "-quantity", "2"};
-        validator = new Validator();
+        validator = new ValidatorUtils();
         Item it = validator.getDetails(args);
         it.calculateFinalPrice();
         float expected = (float) 281.66998;
         assertEquals(it.getFinalPrice(), expected);
     }
-
 }
