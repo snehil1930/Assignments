@@ -1,15 +1,15 @@
 package Assignment_1;
-/**
+
+/*
  * This class is use to calulate tax of different items
  */
-
 public final class Utils {
-	/**
+
+	/*
 	* This method calulate tax of raw item
 	* @param price  prive  of item
 	* @return tax of raw item
     */
-	
 	private float rawTax(final float price)
 	{
 		final float tax_of_raw= (float) ((12.5/Constants.hun)*price);

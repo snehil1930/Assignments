@@ -2,8 +2,10 @@ package assignthree.model;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
+import assignthree.constants.ErrorConstants;
 import assignthree.util.DfsOperatorUtils;
 import assignthree.exceptions.InvalidInput;
 
@@ -15,23 +17,26 @@ public class Graph {
     /*
      * dependency of from parent to child relations
      */
-    private Map<Integer, ArrayList<Integer>> child = new ConcurrentHashMap<>();
+    private Map<Integer, ArrayList<Integer>> child=new ConcurrentHashMap<>();
 
     /*
      * Reverse Dependency of from child to parent
      */
-    private Map<Integer, ArrayList<Integer>> parents = new ConcurrentHashMap<>();
+    private Map<Integer, ArrayList<Integer>> parents=new ConcurrentHashMap<>();
 
     /*
      * adding node details of a node
      */
-    private Map<Integer, Node> nodeList = new ConcurrentHashMap<>();
+    private Map<Integer, Node> nodeList=new ConcurrentHashMap<>();
 
     /*
      * Getter function of the child map
      * @return  child hashmap of the graph
      */
     public Map<Integer, ArrayList<Integer>> getChild() {
+        if (Objects.isNull(child)) {
+            child = new ConcurrentHashMap<>();
+        }
         return child;
     }
 
@@ -48,6 +53,9 @@ public class Graph {
      * @return parents hashmap of the graph reverse
      */
     public Map<Integer, ArrayList<Integer>> getParents() {
+        if (Objects.isNull(parents)) {
+            parents = new ConcurrentHashMap<>();
+        }
         return parents;
     }
 
@@ -64,6 +72,9 @@ public class Graph {
      * @return  nodeList
      */
     public Map<Integer, Node> getNodeList() {
+        if (Objects.isNull(nodeList)) {
+            nodeList = new ConcurrentHashMap<>();
+        }
         return nodeList;
     }
 
@@ -82,7 +93,7 @@ public class Graph {
      */
     public ArrayList<Integer> getImmediateParent(final Integer nodeId) {
         if (!nodeList.containsKey(nodeId)) {
-            throw new InvalidInput(FixConstants.PRINT_2);
+            throw new InvalidInput(ErrorConstants.NODE_IS_NOT_PRESENT);
         } else {
             return parents.get(nodeId);
         }
@@ -110,7 +121,7 @@ public class Graph {
      */
     public ArrayList<Integer> getImmediateChild(final Integer node) {
         if (!nodeList.containsKey(node)) {
-            throw new InvalidInput(FixConstants.PRINT_2);
+            throw new InvalidInput(ErrorConstants.NODE_IS_NOT_PRESENT);
         } else {
             return child.get(node);
         }
@@ -123,7 +134,7 @@ public class Graph {
      */
     public ArrayList<Integer> getAllAncestors(final Integer nodeId) {
         if (!nodeList.containsKey(nodeId)) {
-            throw new InvalidInput(FixConstants.PRINT_2);
+            throw new InvalidInput(ErrorConstants.NODE_IS_NOT_PRESENT);
         } else {
             return DfsOperatorUtils.dfs(nodeId, parents);
         }
@@ -136,7 +147,7 @@ public class Graph {
      */
     public ArrayList<Integer> getAllDescendendants(final Integer node) {
         if (!nodeList.containsKey(node)) {
-            throw new InvalidInput(FixConstants.PRINT_2);
+            throw new InvalidInput(ErrorConstants.NODE_IS_NOT_PRESENT);
         } else {
             return DfsOperatorUtils.dfs(node, child);
         }
@@ -144,16 +155,15 @@ public class Graph {
 
     /*
      * remove the connection between the node ids if they are present
-     * @paran parId id of parent node
+     * @paran parentId id of parent node
      * @param  childId id of child node
      */
-    public void deleteDependency(final Integer parId, final Integer childId) {
-        if (!nodeList.containsKey(parId) || !nodeList.containsKey(childId)) {
-            throw new InvalidInput(FixConstants.PRINT_2);
+    public void deleteDependency(final Integer parentId, final Integer childId) {
+        if (!nodeList.containsKey(parentId) || !nodeList.containsKey(childId)) {
+            throw new InvalidInput(ErrorConstants.NODE_IS_NOT_PRESENT);
         } else {
-
-            child.get(parId).remove(childId);
-            parents.get(childId).remove(parId);
+            child.get(parentId).remove(childId);
+            parents.get(childId).remove(parentId);
         }
     }
 
@@ -163,15 +173,11 @@ public class Graph {
      */
     public void deleteNode(final Integer nodeId) {
         if (!nodeList.containsKey(nodeId)) {
-            throw new InvalidInput(FixConstants.PRINT_2);
+            throw new InvalidInput(ErrorConstants.NODE_IS_NOT_PRESENT);
         } else {
-            for (final Integer it : parents.get(nodeId)) {
-                child.get(it).remove(nodeId);
-            }
+            parents.get(nodeId).forEach(it -> child.get(it).remove(nodeId));
             parents.remove(nodeId);
-            for (final Integer it : child.get(nodeId)) {
-                parents.get(it).remove(nodeId);
-            }
+            child.get(nodeId).forEach(it -> parents.get(it).remove(nodeId));
             child.remove(nodeId);
             nodeList.remove(nodeId);
         }
@@ -180,18 +186,18 @@ public class Graph {
     /*
      * it is used to add connection between nodes if it does not
      * form cycle
-     * @param parId parent id of connection
+     * @param parentId parent id of connection
      * @param childId child node of connection
      * */
-    public void addDependency(final Integer parId, final Integer childId) {
-        if (!nodeList.containsKey(parId) || !nodeList.containsKey(childId)) {
-            throw new InvalidInput(FixConstants.PRINT_2);
+    public void addDependency(final Integer parentId, final Integer childId) {
+        if (!nodeList.containsKey(parentId) || !nodeList.containsKey(childId)) {
+            throw new InvalidInput(ErrorConstants.NODE_IS_NOT_PRESENT);
         } else {
-            child.get(parId).add(childId);
-            parents.get(childId).add(parId);
+            child.get(parentId).add(childId);
+            parents.get(childId).add(parentId);
             if (DfsOperatorUtils.checkCycle(child)) {
-                child.get(parId).remove(childId);
-                parents.get(childId).remove(parId);
+                child.get(parentId).remove(childId);
+                parents.get(childId).remove(parentId);
             }
         }
     }

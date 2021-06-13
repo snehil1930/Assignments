@@ -1,13 +1,14 @@
 package assignthree.util;
 
+import assignthree.constants.ValueConstants;
+
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Map;
 
 /*
  * This class will perform all the searching based option depth wise
  */
-public class DfsOperatorUtils {
+public class  DfsOperatorUtils {
 
     /*
      * dfs util function for the searching the node subtree
@@ -16,15 +17,13 @@ public class DfsOperatorUtils {
      * @param res list for adding all node collected
      * @param visited boolean array for visited array
      */
-    public static void dfsHelper(final int src, final Map<Integer, ArrayList<Integer>> child,
-                                 final ArrayList<Integer> res, final boolean[] visited) {
-        visited[src] = true;
-        res.add(src);
-        final Iterator<Integer> i = child.get(src).listIterator();
-        while (i.hasNext()) {
-            final int n = i.next();
-            if (!visited[n]){
-                dfsHelper(n, child, res, visited);
+    public static void dfsHelper(final int source, final Map<Integer, ArrayList<Integer>> child,
+                                 final ArrayList<Integer> result, final boolean[] visited) {
+        visited[source] = true;
+        result.add(source);
+        for (final Integer it:child.get(source)) {
+            if (!visited[it]){
+                dfsHelper(it, child, result, visited);
             }
         }
     }
@@ -35,11 +34,11 @@ public class DfsOperatorUtils {
      * @param child hashmap of the integer to the arraylist
      */
     public static ArrayList<Integer> dfs(final int node, final Map<Integer, ArrayList<Integer>> child) {
-        final int noOfNode = child.size();
-        final boolean[] visited = new boolean[noOfNode + 1];
-        final ArrayList<Integer> result = new ArrayList<>();
+        final var noOfNode = child.size();
+        final var visited = new boolean[noOfNode + 1];
+        final var result = new ArrayList<Integer>();
         dfsHelper(node, child, result, visited);
-        result.remove(0);
+        result.remove(ValueConstants.ZERO);
         return result;
     }
 
@@ -58,12 +57,10 @@ public class DfsOperatorUtils {
         }
         if (visited[node]) {
             return false;
-
         }
         visited[node] = true;
         recStack[node] = true;
-        final ArrayList<Integer> children = child.get(node);
-        for (final Integer c : children){
+        for (final Integer c : child.get(node)){
             if (isCyclicUtil(c, visited, recStack, child)){
                 return true;
             }
@@ -78,11 +75,11 @@ public class DfsOperatorUtils {
      * @return boolean value of the result
      */
     public static boolean checkCycle(final Map<Integer, ArrayList<Integer>> child) {
-        final int noOfNode = child.size();
-        final boolean[] visited = new boolean[noOfNode + 1];
-        final boolean[] recStack = new boolean[noOfNode + 1];
-        for (int i = 1; i <= noOfNode; i++) {
-            if (isCyclicUtil(i, visited, recStack, child)) {
+        final var noOfNode = child.size();
+        final var visited = new boolean[noOfNode + ValueConstants.CHOICE_1];
+        final var recursionStack = new boolean[noOfNode + ValueConstants.CHOICE_1];
+        for (var i = 1; i <= noOfNode; i++) {
+            if (isCyclicUtil(i, visited, recursionStack, child)) {
                 return true;
             }
         }

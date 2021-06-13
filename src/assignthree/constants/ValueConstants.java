@@ -1,9 +1,9 @@
-package assignthree.model;
+package assignthree.constants;
 
 /*
  * This class will store the constants that will be use in the package assign3
  */
-public class FixConstants {
+public class ValueConstants {
 
     /*
      * 0 value constants
@@ -19,16 +19,6 @@ public class FixConstants {
      * 1 value constants
      */
     public static final int CHOICE_1 = 1;
-
-    /*
-     * message for invalid value input by user
-     */
-    public static final String PRINT_1 = "INVALID INPUT";
-
-    /*
-     * This message is printed when node is not present
-     */
-    public static final String PRINT_2 = "Node Is not Present";
 
     /*
      * 2 value constants
