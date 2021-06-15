@@ -1,4 +1,4 @@
-package assignthree.constants;
+package assignmentthree.constants;
 
 /*
  * This class will store the constants that will be use in the package assign3
@@ -59,4 +59,8 @@ public class ValueConstants {
      * yes value constant
      */
     public static final String YES = "Y";
+    public static final String CAT="cat";
+    public static final String TIGER="tiger";
+    public static final Boolean TRUE=true;
+    public static final Boolean FALSE=false;
 }

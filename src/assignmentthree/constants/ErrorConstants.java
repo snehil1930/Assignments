@@ -1,4 +1,4 @@
-package assignthree.constants;
+package assignmentthree.constants;
 
 public class ErrorConstants {
 

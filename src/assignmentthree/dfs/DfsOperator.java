@@ -1,6 +1,6 @@
-package assignthree.util;
+package assignmentthree.dfs;
 
-import assignthree.constants.ValueConstants;
+import assignmentthree.constants.ValueConstants;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -8,7 +8,7 @@ import java.util.Map;
 /*
  * This class will perform all the searching based option depth wise
  */
-public class  DfsOperatorUtils {
+public class DfsOperator {
 
     /*
      * dfs util function for the searching the node subtree
@@ -19,13 +19,10 @@ public class  DfsOperatorUtils {
      */
     public static void dfsHelper(final int source, final Map<Integer, ArrayList<Integer>> child,
                                  final ArrayList<Integer> result, final boolean[] visited) {
-        visited[source] = true;
+        visited[source] = ValueConstants.TRUE;
         result.add(source);
-        for (final Integer it:child.get(source)) {
-            if (!visited[it]){
-                dfsHelper(it, child, result, visited);
-            }
-        }
+        child.get(source).stream().filter(it -> !visited[it]).
+                forEach(it -> dfsHelper(it, child, result, visited));
     }
 
     /*
@@ -52,21 +49,21 @@ public class  DfsOperatorUtils {
      */
     public static boolean isCyclicUtil(final int node, final boolean[] visited,
                                        final boolean[] recStack, final Map<Integer, ArrayList<Integer>> child) {
-        if (recStack[node]){
-            return true;
+        if (recStack[node]) {
+            return ValueConstants.TRUE;
         }
         if (visited[node]) {
-            return false;
+            return ValueConstants.FALSE;
         }
-        visited[node] = true;
-        recStack[node] = true;
-        for (final Integer c : child.get(node)){
-            if (isCyclicUtil(c, visited, recStack, child)){
-                return true;
+        visited[node] = ValueConstants.TRUE;
+        recStack[node] = ValueConstants.TRUE;
+        for (final Integer it : child.get(node)) {
+            if (isCyclicUtil(it, visited, recStack, child)) {
+                return ValueConstants.TRUE;
             }
         }
-        recStack[node] = false;
-        return false;
+        recStack[node] = ValueConstants.FALSE;
+        return ValueConstants.FALSE;
     }
 
     /*
@@ -80,10 +77,10 @@ public class  DfsOperatorUtils {
         final var recursionStack = new boolean[noOfNode + ValueConstants.CHOICE_1];
         for (var i = 1; i <= noOfNode; i++) {
             if (isCyclicUtil(i, visited, recursionStack, child)) {
-                return true;
+                return ValueConstants.TRUE;
             }
         }
-        return false;
+        return ValueConstants.FALSE;
     }
 }
 

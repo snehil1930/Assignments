@@ -1,13 +1,13 @@
-package assignthree.model;
+package assignmentthree.model;
 
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
-import assignthree.constants.ErrorConstants;
-import assignthree.util.DfsOperatorUtils;
-import assignthree.exceptions.InvalidInput;
+import assignmentthree.constants.ErrorConstants;
+import assignmentthree.dfs.DfsOperator;
+import assignmentthree.exceptions.InvalidInput;
 
 /*
  * Class having all functions related to tree
@@ -136,7 +136,7 @@ public class Graph {
         if (!nodeList.containsKey(nodeId)) {
             throw new InvalidInput(ErrorConstants.NODE_IS_NOT_PRESENT);
         } else {
-            return DfsOperatorUtils.dfs(nodeId, parents);
+            return DfsOperator.dfs(nodeId, parents);
         }
     }
 
@@ -149,7 +149,7 @@ public class Graph {
         if (!nodeList.containsKey(node)) {
             throw new InvalidInput(ErrorConstants.NODE_IS_NOT_PRESENT);
         } else {
-            return DfsOperatorUtils.dfs(node, child);
+            return DfsOperator.dfs(node, child);
         }
     }
 
@@ -195,7 +195,7 @@ public class Graph {
         } else {
             child.get(parentId).add(childId);
             parents.get(childId).add(parentId);
-            if (DfsOperatorUtils.checkCycle(child)) {
+            if (DfsOperator.checkCycle(child)) {
                 child.get(parentId).remove(childId);
                 parents.get(childId).remove(parentId);
             }

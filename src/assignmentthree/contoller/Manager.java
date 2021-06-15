@@ -1,12 +1,12 @@
-package assignthree.contoller;
+package assignmentthree.contoller;
 
 import java.util.Scanner;
 
-import assignthree.constants.ErrorConstants;
-import assignthree.constants.ValueConstants;
-import assignthree.exceptions.InvalidInput;
-import assignthree.model.Graph;
-import assignthree.model.Node;
+import assignmentthree.constants.ErrorConstants;
+import assignmentthree.constants.ValueConstants;
+import assignmentthree.exceptions.InvalidInput;
+import assignmentthree.model.Graph;
+import assignmentthree.model.Node;
 
 /*
  * all the operations of user entry is controlled from here
@@ -57,7 +57,7 @@ public class Manager {
     }
 
     /*
-     * this method find all the nodes that are subgraph of goven node
+     * this method find all the nodes that are subgraph of given node
      */
     private void findAncestors() {
         final var node = scan.nextInt();
@@ -117,8 +117,8 @@ public class Manager {
     public void start() {
 
         //Initial input for feeding the graph
-        final var node1 = new Node(1, "cat");
-        final var node2 = new Node(2, "Tiger");
+        final var node1 = new Node(1, ValueConstants.CAT);
+        final var node2 = new Node(2, ValueConstants.TIGER);
         graph.addNode(node1.getId(), node1);
         graph.addNode(node2.getId(), node1);
         graph.addDependency(node1.getId(), node2.getId());

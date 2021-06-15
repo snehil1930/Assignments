@@ -1,4 +1,4 @@
-package assignthree.model;
+package assignmentthree.model;
 
 /*
  * This class is use to store unique Node Of tree
@@ -16,7 +16,7 @@ public class Node {
     private final String name;
 
     /*
-     * paramterise constructor to intialise id and name
+     * parameterise constructor to initialise id and name
      * @param  id id of the node
      * @param name name of the node
      */

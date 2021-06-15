@@ -1,7 +1,7 @@
-package test.assignthree;
+package test.assignthreetest;
 
-import assignthree.model.Graph;
-import assignthree.model.Node;
+import assignmentthree.model.Graph;
+import assignmentthree.model.Node;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ public class GraphTest {
      * preparing the graph for under the test
      */
 
-    public void callTest() {
+    public void init() {
         child = new ConcurrentHashMap<>();
         parent = new ConcurrentHashMap<>();
         child.put(1, new ArrayList<>());
@@ -45,33 +45,27 @@ public class GraphTest {
         parent.get(3).add(1);
         parent.get(4).add(2);
         parent.get(5).add(3);
-
-        final var node1 = new Node(1, "a");
-        final var node2 = new Node(2, "b");
-        final var node3 = new Node(3, "c");
-        final var node4 = new Node(4, "d");
-        final var node5 = new Node(5, "e");
         nodeList = new ConcurrentHashMap<>();
-        nodeList.put(1, node1);
-        nodeList.put(2, node2);
-        nodeList.put(3, node3);
-        nodeList.put(4, node4);
-        nodeList.put(5, node5);
+        nodeList.put(1, new Node(1, "a"));
+        nodeList.put(2, new Node(2, "b"));
+        nodeList.put(3, new Node(3, "c"));
+        nodeList.put(4, new Node(4, "d"));
+        nodeList.put(5, new Node(5, "e"));
         graph.setChild(child);
         graph.setParents(parent);
         graph.setNodeList(nodeList);
     }
 
     /*
-     * verfiying graph form is correct
+     * verifying graph formed is correct in edge linkage
+     * and number of unique id present
      */
     @Test
-    public void testGraph() {
-
-        callTest();
-        Map<Integer, ArrayList<Integer>> childTest = child;
-        Map<Integer, ArrayList<Integer>> parentTest = parent;
-        Map<Integer, Node> nodeListTest = nodeList;
+    public void graphFormationTest() {
+        init();
+        final Map<Integer, ArrayList<Integer>> childTest = child;
+        final Map<Integer, ArrayList<Integer>> parentTest = parent;
+        final Map<Integer, Node> nodeListTest = nodeList;
         assertEquals("Graph of parents should be made exactly same", parentTest, graph.getParents());
         assertEquals("Graph of child should be made exactly same", childTest, graph.getChild());
         assertEquals("Graph of node list must be same", nodeListTest, graph.getNodeList());
@@ -82,7 +76,7 @@ public class GraphTest {
      */
     @Test
     public void immediateChildTest() {
-        callTest();
+        init();
         graph.setChild(child);
         graph.setParents(parent);
         graph.setNodeList(nodeList);
@@ -98,7 +92,7 @@ public class GraphTest {
      */
     @Test
     public void immediateParentTest() {
-        callTest();
+        init();
         assertNotNull(graph.getImmediateParent(1));
         final ArrayList<Integer> list1 = new ArrayList<>();
         list1.add(1);
@@ -110,7 +104,7 @@ public class GraphTest {
      */
     @Test
     public void allDescendendantsTest() {
-        callTest();
+        init();
         final ArrayList<Integer> list3 = new ArrayList<>();
         list3.add(2);
         list3.add(4);
@@ -124,7 +118,7 @@ public class GraphTest {
      */
     @Test
     public void allAncestors() {
-        callTest();
+        init();
         final ArrayList<Integer> list4 = new ArrayList<>();
         list4.add(3);
         list4.add(1);
@@ -136,10 +130,9 @@ public class GraphTest {
      */
     @Test
     public void nodelistTest() {
-        callTest();
-        final var node6 = new Node(6, "f");
-        nodeList.put(6, node6);
-        graph.addNode(6, node6);
+        init();
+        nodeList.put(6, new Node(6, "f"));
+        graph.addNode(6, new Node(6, "f"));
         assertEquals(nodeList, graph.getNodeList());
         assertNull(graph.getChild().get(6));
     }
@@ -150,11 +143,11 @@ public class GraphTest {
 
     @Test
     public void deleteDependencyTest() {
-        callTest();
-        Map<Integer, ArrayList<Integer>> childTest = child;
-        Map<Integer, ArrayList<Integer>> parentTest = parent;
-        Integer childId = 5;
-        Integer parentId = 3;
+        init();
+        final Map<Integer, ArrayList<Integer>> childTest = child;
+        final Map<Integer, ArrayList<Integer>> parentTest = parent;
+        final Integer childId = 5;
+        final Integer parentId = 3;
         childTest.get(3).remove(childId);
         parentTest.get(5).remove(parentId);
         graph.deleteDependency(3, 5);
@@ -167,13 +160,12 @@ public class GraphTest {
      */
     @Test
     public void addDependencyTest() {
-        callTest();
-        Map<Integer, ArrayList<Integer>> childTest = child;
-        Map<Integer, ArrayList<Integer>> parentTest = parent;
-        Integer childId = 6;
-        Integer parentId = 3;
-        var node6 = new Node(6, "test");
-        graph.addNode(6, node6);
+        init();
+        final Map<Integer, ArrayList<Integer>> childTest = child;
+        final Map<Integer, ArrayList<Integer>> parentTest = parent;
+        final Integer childId = 6;
+        final Integer parentId = 3;
+        graph.addNode(6, new Node(6, "test"));
         childTest.put(6, new ArrayList<>());
         parentTest.put(6, new ArrayList<>());
         childTest.get(3).add(childId);
@@ -188,9 +180,8 @@ public class GraphTest {
      */
     @Test
     public void addNode() {
-        callTest();
-        var node6 = new Node(6, "test");
-        graph.addNode(6, node6);
+        init();
+        graph.addNode(6, new Node(6, "test"));
         assertEquals(new ArrayList<>(), graph.getChild().get(6));
     }
 }
