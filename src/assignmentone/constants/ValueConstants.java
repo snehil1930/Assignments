@@ -1,7 +1,7 @@
 package assignmentone.constants;
 
 /*
- * Thsis class will contains the value that are frequently use
+ * This is class will contains the value that are frequently use
  */
 public class ValueConstants {
 
@@ -24,8 +24,4 @@ public class ValueConstants {
      * This will take hundred as floating value
      */
     public static final float HUNDRED = 100.0f;
-
-    private ValueConstants(){
-//        private constructor
-    }
 }

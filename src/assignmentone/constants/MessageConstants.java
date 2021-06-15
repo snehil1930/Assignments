@@ -18,7 +18,4 @@ public class MessageConstants {
     public static final String LASTMESSAGE =
             "Thank you purchase!Hope to see you soon..";
 
-    private MessageConstants(){
-//        private constructor
-    }
 }

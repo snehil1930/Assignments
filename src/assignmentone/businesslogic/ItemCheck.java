@@ -12,10 +12,6 @@ import java.util.*;
 public class ItemCheck {
 
     /*
-     * creating validation check on the input
-     */
-
-    /*
      * This method is use to validate input on exceptions and format of input
      */
     private void nextInputs() {

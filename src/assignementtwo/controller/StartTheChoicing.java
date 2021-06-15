@@ -50,9 +50,7 @@ public class StartTheChoicing {
      * This method adds new user in the list
      */
     private void addUser() {
-
         users.add(NewUser.getNewUser());
-        throw new InvalidInputError(ErrorConstants.ERROR_1);
     }
 
     /*
@@ -106,6 +104,9 @@ public class StartTheChoicing {
             } else if (choice == ValueConstants.CHOICE_5) {
                 storgeClass.saveChanges(users);
                 System.exit(ValueConstants.ZERO);
+            }
+            else {
+                System.out.println(storgeClass.getUsers());
             }
         }
     }
