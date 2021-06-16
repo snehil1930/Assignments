@@ -1,4 +1,4 @@
-package test.assignthreetest;
+package assignmentthree.test;
 
 import assignmentthree.model.Graph;
 import assignmentthree.model.Node;
