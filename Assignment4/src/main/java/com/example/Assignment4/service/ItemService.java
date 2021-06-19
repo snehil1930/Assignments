@@ -30,6 +30,7 @@ public class ItemService {
 
     /*
      * service to fetch list of rows from db
+     * @return List of items
      */
     @Async("taskExecutor")
     public List<Items> getItems() {
@@ -44,6 +45,8 @@ public class ItemService {
 
     /*
      * service to fetch item of given id of rows from db
+     * @param id id of item
+     * @return item
      */
     @Async("taskExecutor")
     public Items getItemById(final String id) {
@@ -58,6 +61,7 @@ public class ItemService {
 
     /*
      * service to add rows in db
+     * @param items of the items
      */
     @Async("taskExecutor")
     public void addItems(final Items item) {
@@ -73,6 +77,9 @@ public class ItemService {
 
     /*
      * service to update rows in db
+     * @param  items of class Items
+     * @param  id of items
+     * @return items
      */
     @Async("taskExecutor")
     public Items updateItem(final Items item, final String id) {
@@ -90,6 +97,7 @@ public class ItemService {
 
     /*
      * service to delete ro from db
+     * @param id to be deleteted
      */
     @Async("taskExecutor")
     public void deleteItemById(final String id) {
