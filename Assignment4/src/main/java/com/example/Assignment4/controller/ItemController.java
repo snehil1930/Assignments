@@ -18,14 +18,6 @@ public class ItemController {
     public ItemService itemService;
 
     /*
-     * Welocome page of server
-     */
-    @GetMapping("/home")
-    public String welcome() {
-        return "Welcome";
-    }
-
-    /*
      * get method for fetching all row from db
      */
     @GetMapping("/items")

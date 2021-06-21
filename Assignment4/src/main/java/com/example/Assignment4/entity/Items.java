@@ -1,22 +1,59 @@
 package com.example.Assignment4.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 
 /*
  * pojo class of the item
  */
 @Entity
+@Table(name = "item_detail")
 public class Items {
 
 
+    /*
+     * id of item
+     */
     @Id
+    @GeneratedValue(generator="system-uuid")
+    @GenericGenerator(name="system-uuid", strategy = "uuid")
     private String id;
+
+    /*
+     * name of the item
+     */
+    @Column(name = "name")
     private String name;
+
+    /*
+     * price of item
+     */
+    @Column(name = "price")
     private float price;
+
+    /*
+     * quantity of item
+     */
+    @Column(name = "quantity")
     private int quantity;
+
+    /*
+     * type of the item
+     */
+    @Column(name = "type")
     private String type;
+
+    /*
+     * tax per item
+     */
+    @Column(name = "tax")
     private float tax;
+
+    /*
+     * final price of item
+     */
+    @Column(name = "finalprice")
     private float finalPrice;
 
     /*
