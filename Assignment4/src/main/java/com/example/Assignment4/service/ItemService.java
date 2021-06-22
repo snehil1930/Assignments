@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.locks.ReentrantLock;
 
 /*
@@ -51,11 +52,11 @@ public class ItemService {
      * service to fetch item of given id of rows from db
      */
     @Async("taskExecutor")
-    public Items getItemById(final String id) {
+    public Optional<Items> getItemById(final int id) {
         lock.lock();
         try {
             logger.info(MessageConstants.GETMESSAGE + Thread.currentThread().getName());
-            return itemRepository.findById(id).get();
+            return itemRepository.findById(id);
         } finally {
             lock.unlock();
         }
@@ -65,11 +66,11 @@ public class ItemService {
      * service to add rows in db
      */
     @Async("taskExecutor")
-    public void addItems(final Items item) {
+    public Items addItems(final Items item) {
         lock.lock();
         try {
             logger.info(MessageConstants.PUTMESSAGE + Thread.currentThread().getName());
-            itemRepository.save(new ItemsBuilder(item.getId(), item.getName(),
+            return itemRepository.save(new ItemsBuilder(item.getId(), item.getName(),
                     item.getPrice(), item.getQuantity(), item.getType()).getItem());
         } finally {
             lock.unlock();
@@ -80,13 +81,13 @@ public class ItemService {
      * service to update rows in db
      */
     @Async("taskExecutor")
-    public Items updateItem(final Items item, final String id) {
+    public Items updateItem(final Items item, final int id) {
         lock.lock();
         try {
             logger.info(MessageConstants.PUTMESSAGE + Thread.currentThread().getName());
-            itemRepository.save(new ItemsBuilder(item.getId(), item.getName(),
+           return  itemRepository.save(new ItemsBuilder(item.getId(), item.getName(),
                     item.getPrice(), item.getQuantity(), item.getType()).getItem());
-            return itemRepository.findById(id).get();
+
         } finally {
             lock.unlock();
         }
@@ -97,7 +98,7 @@ public class ItemService {
      * service to delete ro from db
      */
     @Async("taskExecutor")
-    public void deleteItemById(final String id) {
+    public void deleteItemById(final int id) {
         lock.lock();
         try {
             logger.info(MessageConstants.DELETMESSAGE + Thread.currentThread().getName());

@@ -8,7 +8,7 @@ import javax.persistence.*;
  * pojo class of the item
  */
 @Entity
-@Table(name = "item_detail")
+@Table(name = "item_details")
 public class Items {
 
 
@@ -16,9 +16,9 @@ public class Items {
      * id of item
      */
     @Id
-    @GeneratedValue(generator="system-uuid")
-    @GenericGenerator(name="system-uuid", strategy = "uuid")
-    private String id;
+
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
 
     /*
      * name of the item
@@ -59,7 +59,7 @@ public class Items {
     /*
      *getter function of id
      */
-    public String getId() {
+    public int getId() {
         return id;
     }
 
@@ -109,7 +109,7 @@ public class Items {
      * setter function of id
      */
 
-    public void setId(final String id) {
+    public void setId(final int id) {
         this.id = id;
     }
 

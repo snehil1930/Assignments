@@ -4,18 +4,16 @@ package com.example.Assignment4;
 import com.example.Assignment4.entity.Items;
 import com.example.Assignment4.entity.ItemsBuilder;
 import com.example.Assignment4.repository.ItemRepository;
-
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 
 import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 
@@ -38,7 +36,7 @@ public class ItemTest {
     @Test
     @Rollback(value = false)
     public void createItemTest() {
-        Items item = new ItemsBuilder("2", "fruit", 23.4f, 5, "raw").getItem();
+        Items item = new ItemsBuilder(1, "fruit", 23.4f, 5, "raw").getItem();
         Items savedItems = itemRepository.save(item);
         assertNotNull(savedItems);
         assertThat(savedItems.getName()).isEqualTo("fruit");
@@ -49,8 +47,8 @@ public class ItemTest {
      */
     @Test
     public void findItemByIdTest() {
-        String searchId = "2";
-        Items items = itemRepository.findById(searchId).get();
+        final  int searchId = 1;
+        Items items =  itemRepository.findById(searchId).get();
         assertEquals("fruit", items.getName());
     }
 
@@ -69,7 +67,7 @@ public class ItemTest {
     @Test
     @Rollback(value = false)
     public void updateItemTest() {
-        Items item = new ItemsBuilder("2", "fruit", 23.4f, 5, "imported").getItem();
+        Items item = new ItemsBuilder(1, "fruit", 23.4f, 5, "imported").getItem();
         Items updatedItems = itemRepository.save(item);
         assertNotNull(updatedItems);
         assertThat(updatedItems.getType()).isEqualTo("imported");
@@ -79,12 +77,11 @@ public class ItemTest {
      * delete the id and test id is present or not
      */
     @Test
-    @Rollback(value = false)
     public void deleteItemTest() {
-        boolean exitBeforeDelete = itemRepository.findById("1").isPresent();
-        itemRepository.deleteById("1");
+        boolean exitBeforeDelete = itemRepository.findById(1).isPresent();
+        itemRepository.deleteById(1);
         assertEquals(true, exitBeforeDelete);
-        boolean notExitAfterDelete = itemRepository.findById("1").isPresent();
+        boolean notExitAfterDelete = itemRepository.findById(1).isPresent();
         assertNotEquals(true, notExitAfterDelete);
     }
 

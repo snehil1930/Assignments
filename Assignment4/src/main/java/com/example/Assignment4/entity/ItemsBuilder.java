@@ -20,7 +20,8 @@ public class ItemsBuilder {
      * @param quantity quantity of item
      * @param type type of item
      */
-    public ItemsBuilder(final String id, final String name, final float price, final int quantity, final String type) {
+    public ItemsBuilder(final int id, final String name,
+                        final float price, final int quantity, final String type) {
         this.item = new Items();
         item.setId(id);
         item.setName(name);
