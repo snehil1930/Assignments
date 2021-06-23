@@ -28,7 +28,7 @@ public class ItemService {
 
     /*
     * logger class*/
-    Logger logger = LoggerFactory.getLogger(ItemService.class);
+    private static final Logger logger = LoggerFactory.getLogger(ItemService.class);
     /*
      * lock used is ReentrantLock
      */
@@ -70,8 +70,10 @@ public class ItemService {
         lock.lock();
         try {
             logger.info(MessageConstants.PUTMESSAGE + Thread.currentThread().getName());
-            return itemRepository.save(new ItemsBuilder(item.getId(), item.getName(),
+            System.out.println();
+            itemRepository.save(new ItemsBuilder(item.getId(), item.getName(),
                     item.getPrice(), item.getQuantity(), item.getType()).getItem());
+            return item;
         } finally {
             lock.unlock();
         }
@@ -85,8 +87,9 @@ public class ItemService {
         lock.lock();
         try {
             logger.info(MessageConstants.PUTMESSAGE + Thread.currentThread().getName());
-           return  itemRepository.save(new ItemsBuilder(item.getId(), item.getName(),
+            itemRepository.save(new ItemsBuilder(item.getId(), item.getName(),
                     item.getPrice(), item.getQuantity(), item.getType()).getItem());
+            return item;
 
         } finally {
             lock.unlock();

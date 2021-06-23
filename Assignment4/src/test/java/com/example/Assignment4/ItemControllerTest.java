@@ -8,10 +8,10 @@ import com.example.Assignment4.service.ItemService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
@@ -47,13 +47,12 @@ public class ItemControllerTest {
     /*
      * Mocking of item service
      * */
-    @MockBean
+    @Mock
     private ItemService itemService;
 
     /*
      * Object mapping from string to json
      * */
-    @Autowired
     private ObjectMapper objectMapper;
 
     /*
@@ -66,7 +65,7 @@ public class ItemControllerTest {
      * */
 
     @BeforeEach
-    void init() {
+    public void init() {
         this.itemsList = new ArrayList<>();
         this.itemsList.add(new ItemsBuilder(2, "wheat", 12.0f, 2, "raw").getItem());
         this.itemsList.add(new ItemsBuilder(3, "bag", 120.0f, 1, "imported").getItem());
@@ -76,7 +75,7 @@ public class ItemControllerTest {
      * get function test from db
      */
     @Test
-    void getAllItemTest() throws Exception {
+    public void getAllItemTest() throws Exception {
         given(itemService.getItems()).willReturn(itemsList);
         this.mockMvc.perform(get("/items"))
                 .andExpect(status().isOk())
@@ -88,7 +87,7 @@ public class ItemControllerTest {
      * get function of id test
      */
     @Test
-    void getItemByIdTest() throws Exception {
+    public void getItemByIdTest() throws Exception {
         final var item = new ItemsBuilder(2, "wheat", 12.0f, 2, "raw").getItem();
         given(itemService.getItemById(2)).willReturn(Optional.of(item));
         this.mockMvc.perform((get("/item/{id}", 2)))
@@ -101,7 +100,7 @@ public class ItemControllerTest {
      * IF ID not exist
      * */
     @Test
-    void getItemByIdNotExistTest() throws Exception {
+    public void getItemByIdNotExistTest() throws Exception {
 
         given(itemService.getItemById(2)).willReturn(Optional.empty());
         this.mockMvc.perform(get("/item/{id}", 2))
@@ -112,7 +111,7 @@ public class ItemControllerTest {
      * post testing
      * */
     @Test
-    void postItemTest() throws Exception {
+    public void postItemTest() throws Exception {
         final var item = new ItemsBuilder(4, "wheat", 12.0f, 2, "raw").getItem();
         given(itemService.addItems(any(Items.class))).willAnswer((invocation -> invocation.getArgument(0)));
         this.mockMvc.perform(put("/item")
@@ -127,7 +126,7 @@ public class ItemControllerTest {
      * update the id test
      */
     @Test
-    void updateItemByIdTest() throws Exception {
+    public void updateItemByIdTest() throws Exception {
         final var item = new ItemsBuilder(2, "wool", 43.3f, 3, "manufactured").getItem();
         given(itemService.getItemById(2)).willReturn(Optional.of(item));
         given(itemService.updateItem(any(Items.class), 1)).willAnswer(invocation -> invocation.getArgument(0));
@@ -142,7 +141,7 @@ public class ItemControllerTest {
      * delete the item by id test
      * */
     @Test
-    void deleteItemByIdTest() throws Exception {
+    public void deleteItemByIdTest() throws Exception {
         final var item = new ItemsBuilder(1, "wool", 43.3f, 3, "manufactured").getItem();
         given(itemService.getItemById(1)).willReturn(Optional.of(item));
         doNothing().when(itemService).deleteItemById(1);
@@ -157,7 +156,7 @@ public class ItemControllerTest {
      * delete id is not present test
      * */
     @Test
-    void deleteItemByIdNoTExistTest() throws Exception {
+    public void deleteItemByIdNoTExistTest() throws Exception {
         given(itemService.getItemById(1)).willReturn(Optional.empty());
         this.mockMvc.perform(delete("/item/{id}", 1))
                 .andExpect(status().isNotFound());
